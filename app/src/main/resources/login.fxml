@@ -71,7 +71,7 @@
                <children>
                   <TextField fx:id="username" promptText="Username" GridPane.rowIndex="1" />
                   <TextField fx:id="password" promptText="Password" GridPane.rowIndex="2" />
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Log in" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" onAction="#login" text="Log in" GridPane.rowIndex="3" />
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
                         <Image url="@../../../../../../00%20Faecher/8.%20PM%202/02%20eigenes%20Projekt/LogoSecretRecipe.jpg" />
