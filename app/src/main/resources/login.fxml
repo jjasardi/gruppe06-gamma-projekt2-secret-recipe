@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -42,6 +43,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -49,9 +51,9 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu mnemonicParsing="false" text="Hilfe">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#showHelp" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Hilfe anzeigen" />
           </items>
         </Menu>
       </menus>
@@ -69,14 +71,22 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="username" promptText="Username" GridPane.rowIndex="1" />
-                  <TextField fx:id="password" promptText="Password" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" onAction="#login" text="Log in" GridPane.rowIndex="3" />
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
-                     <image>
-                        <Image url="@../../../../../../00%20Faecher/8.%20PM%202/02%20eigenes%20Projekt/LogoSecretRecipe.jpg" />
-                     </image>
-                  </ImageView>
+                  <TextField fx:id="username" promptText="Benutzername" GridPane.rowIndex="1" />
+                  <TextField fx:id="password" promptText="Passwort" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onAction="#login" text="Anmelden" GridPane.rowIndex="3" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#backToLastView" text="Zurück" />
+                        <ImageView fitHeight="100.0" fitWidth="100.0">
+                           <image>
+                              <Image url="@../../../../../../00%20Faecher/8.%20PM%202/02%20eigenes%20Projekt/LogoSecretRecipe.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                  </HBox>
                </children>
             </GridPane>
       </children>
