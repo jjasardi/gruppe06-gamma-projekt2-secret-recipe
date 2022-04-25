@@ -96,7 +96,7 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addUser" text="Hinzufügen" />
-                              <Button mnemonicParsing="false" onAction="#removePerson" text="Entfernen" />
+                              <Button mnemonicParsing="false" onAction="#removeUser" text="Entfernen" />
                            </children>
                         </HBox>
                      </children>
