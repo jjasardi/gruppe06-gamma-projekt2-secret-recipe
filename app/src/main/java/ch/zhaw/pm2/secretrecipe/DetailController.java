@@ -7,8 +7,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class DetailController {
-    Recipe recipe;
-    User user;
+    private Recipe recipe;
+    private User user;
 
     @FXML
     private TextArea authorizedPersons;
