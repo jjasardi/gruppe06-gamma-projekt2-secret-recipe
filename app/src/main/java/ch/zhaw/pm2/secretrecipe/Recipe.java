@@ -7,7 +7,7 @@ public class Recipe {
     private String name;
     private String ingredients;
     private String description;
-    private User owner;
+    private final User owner;
 
     /**
      * @param name
