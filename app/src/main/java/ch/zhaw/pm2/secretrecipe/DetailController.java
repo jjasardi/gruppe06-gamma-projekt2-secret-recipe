@@ -72,11 +72,11 @@ public class DetailController {
         return description.getText();
     }
 
-    void printAuthorizedUsers(User user) {
-        List<Recipe> reicpesForUser = user.getRecipeListe();
-
-        if (reicpesForUser.contains(recipe)) {
-            authorizedUsers.setText(user.getUsername() + "\n");
+    void printAuthorizedUsers(List<User> users) {
+        for(User user : users) {
+            if (user.getRecipeListe().contains(recipe)) {
+                authorizedUsers.setText(user.getUsername() + "\n");
+            }
         }
     }
 
