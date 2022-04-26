@@ -37,6 +37,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -46,7 +47,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="loginBox" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -57,7 +58,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="loginPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
             <GridPane layoutX="210.0" layoutY="16.0" prefHeight="338.0" prefWidth="229.0">
               <columnConstraints>
@@ -84,7 +85,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="username" promptText="Benutzername" GridPane.columnIndex="1" />
+                        <TextField fx:id="usernameField" promptText="Benutzername" GridPane.columnIndex="1" />
                         <Label text="Benutzername" />
                      </children>
                   </GridPane>
@@ -97,7 +98,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="password" promptText="Passwort" GridPane.columnIndex="1" />
+                        <PasswordField fx:id="passwordField" promptText="Passwort" GridPane.columnIndex="1" />
                         <Label text="Passwort" />
                      </children>
                   </GridPane>
@@ -110,8 +111,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#login" text="Anmelden" />
-                        <Button mnemonicParsing="false" onAction="#switchToRegisterView" text="Registrieren" GridPane.rowIndex="1" />
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginUser" text="Anmelden" />
+                        <Button fx:id="switchToRegisterButton" mnemonicParsing="false" onAction="#switchToRegisterView" text="Registrieren" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
