@@ -3,7 +3,8 @@ package ch.zhaw.pm2.secretrecipe;
 /**
  *
  */
-public class Recipe {
+public class Recipe implements java.io.Serializable {
+    private static final long serialVersionUID = 10L;
     private String name;
     private String ingredients;
     private String description;

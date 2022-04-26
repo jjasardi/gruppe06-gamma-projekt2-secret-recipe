@@ -6,7 +6,8 @@ import java.util.List;
 /**
  *
  */
-public class User {
+public class User implements java.io.Serializable {
+    private static final long serialVersionUID = 20L;
     private String firstname;
     private String surname;
     private String username;
