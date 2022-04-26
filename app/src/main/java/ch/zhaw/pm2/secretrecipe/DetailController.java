@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class DetailController {
     private Recipe recipe;
@@ -19,10 +20,10 @@ public class DetailController {
     private HashMap<String, Parent> screens = new HashMap<>();
 
     @FXML
-    private TextArea authorizedPersons;
+    private TextArea authorizedUsers;
 
     @FXML
-    private TextArea description; 
+    private TextArea description;
 
     @FXML
     private TextArea ingredients;
@@ -47,11 +48,19 @@ public class DetailController {
         root.getScene().setRoot(screens.get(App.START));
     }
 
+    @FXML
+    void editRecipeDescribtion(ActionEvent event) {
+        ingredients.setEditable(true);
+        description.setEditable(true);
+    }
+
     void setIngredientsText () {
+        ingredients.setEditable(false);
         ingredients.setText(recipe.getIngredients());
     }
 
     void setDescription () {
+        description.setEditable(false);
         description.setText(recipe.getDescription());
     }
 
@@ -61,6 +70,18 @@ public class DetailController {
 
     String getDescription() {
         return description.getText();
+    }
+
+    void printAuthorizedUsers(User user) {
+        List<Recipe> reicpesForUser = user.getRecipeListe();
+
+        if (reicpesForUser.contains(recipe)) {
+            authorizedUsers.setText(user.getUsername() + "\n");
+        }
+    }
+
+    void setRecipeName(Recipe recipe) {
+        recipeName.setText(recipe.getName());
     }
 
     @Override
