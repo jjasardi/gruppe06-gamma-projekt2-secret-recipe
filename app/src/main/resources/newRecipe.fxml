@@ -35,7 +35,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
 <children>
       <GridPane layoutY="16.0" prefHeight="357.0" prefWidth="640.0">
@@ -80,17 +79,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextArea fx:id="authorizedUsers" prefHeight="200.0" prefWidth="200.0" promptText="Bitte authorisierte Personen hinzufügen!" GridPane.rowIndex="1" />
+                  <TextArea fx:id="authorizedUsers" prefHeight="200.0" prefWidth="200.0" promptText="Bitte authorisierte Personen mit @username eintragen!!" GridPane.rowIndex="1" />
                   <Label text="authorisierte Personen:" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#addPerson" text="Hinzufügen" />
-                        <Button mnemonicParsing="false" onAction="#removePerson" text="Entfernen" />
-                     </children>
-                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <TextField fx:id="recipeName" promptText="Bitte Rezeptname hinzufügen!" GridPane.columnIndex="1" />
+            <Label layoutX="10.0" layoutY="137.0" text="Rezeptname" />
          </children>
       </GridPane>
       <Button layoutX="-2.0" layoutY="4.0" mnemonicParsing="false" onAction="#backToLastView" text="Zurück" />
