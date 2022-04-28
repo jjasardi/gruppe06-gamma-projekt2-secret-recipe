@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -22,13 +23,17 @@ public class NewRecipeController {
     private User user;
     private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
-    private static final Logger logger = Logger.getLogger("NewRecipeLogger"); 
+    private List<String> entredAuthiorizedUsers = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger("NewRecipeLogger");
 
     @FXML
     private TextArea authorizedUsers;
 
     @FXML
     private TextArea description;
+
+    @FXML
+    private TextField entredUserToAuthorize;
 
     @FXML
     private TextArea ingredients;
@@ -41,12 +46,12 @@ public class NewRecipeController {
 
     @FXML
     void backToLastView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.START));
+        goToLastView();
     }
 
     @FXML
     void deleteDraftRecipe(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.START));
+        goToLastView();
     }
 
     @FXML
@@ -54,12 +59,12 @@ public class NewRecipeController {
         String nameRecipe = recipeName.getText();
         String ingredientsRecipe = ingredients.getText();
         String describtionRecipe = description.getText();
-        String usersRecipe = authorizedUsers.getText().;
-        Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
+        String usersRecipe = authorizedUsers.getText();
 
-        if(handleNameRecipeEmpty(nameRecipe) && handleIngredientsEmpty(ingredientsRecipe) && handleDescriptionEmpty(describtionRecipe) && handlerUsersEmpty(usersRecipe)){
+        if(handleNameRecipeEmpty(nameRecipe) && handleIngredientsEmpty(ingredientsRecipe) && handleDescriptionEmpty(describtionRecipe)){
+            Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
             user.getRecipeListe().add(currentRecipe);
-            String[] authozizedUsers = getAuthorizedUsers(authorizedUsers.getText());
+            root.getScene().setRoot(screens.get(App.START));
             try {
                 ObjectOutputStream recipe = new ObjectOutputStream(new FileOutputStream(currentRecipe.getName()));
                 recipe.writeObject(currentRecipe);
@@ -69,27 +74,16 @@ public class NewRecipeController {
         }
     }
 
-    private String[] getAuthorizedUsers(String text) {
-        //TODO hier die username aus dem string hollen
-        String[] authorizedUsers = text.split("");
-        return authorizedUsers;
-    }
-
-    private boolean handlerUsersEmpty(String usersRecipe) {
-        boolean inputIsEmtpy = true;
-        if(usersRecipe.matches("")) {
-            authorizedUsers.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            authorizedUsers.setText("Bitte nicht leer lassen!");
-            return false;
-        }
-        return true;
+    @FXML
+    void addUser(ActionEvent event) {
+        entredAuthiorizedUsers.add(entredUserToAuthorize.getText());
+        entredUserToAuthorize.clear();
     }
 
     private boolean handleDescriptionEmpty(String describtionRecipe) {
         boolean inputIsEmtpy = true;
         if(describtionRecipe.matches("")) {
-            description.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            description.setText("Bitte nicht leer lassen!");
+            errorInfo(Color.RED, description);
             return false;
         }
         return true;
@@ -98,8 +92,7 @@ public class NewRecipeController {
     private boolean handleIngredientsEmpty(String ingredientsRecipe) {
         boolean inputIsEmtpy = true;
         if(ingredientsRecipe.matches("")) {
-            ingredients.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            ingredients.setText("Bitte nicht leer lassen!");
+            errorInfo(Color.RED, ingredients);
             return false;
         }
         return true;
@@ -108,10 +101,18 @@ public class NewRecipeController {
     private boolean handleNameRecipeEmpty(String nameRecipe) {
         boolean inputIsEmtpy = true;
         if(nameRecipe.matches("")) {
-            recipeName.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-            recipeName.setText("Bitte nicht leer lassen!");
+            errorInfo(Color.RED, recipeName);
             return false;
         }
         return true;
+    }
+
+    private void errorInfo(Color color, TextInputControl text) {
+        text.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        text.setText("Bitte nicht leer lassen!");
+    }
+
+    private void goToLastView() {
+        root.getScene().setRoot(screens.get(App.START));
     }
 }
