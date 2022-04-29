@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 import java.util.HashMap;
 import java.util.List;
 
-public class DetailController {
+public class DetailController implements ScreenController{
     private Recipe recipe;
     private User user;
     private HashMap<String, Parent> screens = new HashMap<>();
