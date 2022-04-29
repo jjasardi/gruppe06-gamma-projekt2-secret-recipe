@@ -28,4 +28,13 @@ public class LoginController {
     private void switchToRegisterButton() {
         
     }
+
+    public User getUserMatchingCredentials(String username, String password) {
+        for (User user : userList) {
+            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
 }
