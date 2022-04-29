@@ -37,28 +37,25 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegistrationController">
-  <children>
-    <AnchorPane fx:id="registrationPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-            <Label layoutX="170.0" layoutY="143.0" text="Vorname:" />
-            <Label layoutX="166.0" layoutY="174.0" text="Nachname:" />
-            <Label layoutX="165.0" layoutY="207.0" text="Benutzername:" />
-            <Label layoutX="165.0" layoutY="240.0" text="Passwort:" />
-            <TextField fx:id="firstNameField" layoutX="282.0" layoutY="139.0" />
-            <TextField fx:id="surnameField" layoutX="282.0" layoutY="170.0" />
-            <TextField fx:id="usernameField" layoutX="282.0" layoutY="203.0" />
-            <PasswordField fx:id="passwordField" layoutX="282.0" layoutY="236.0" />
-            <Button fx:id="registerButton" layoutX="294.0" layoutY="281.0" mnemonicParsing="false" onAction="#registerUser" text="Registrieren" />
-            <Label layoutX="64.0" layoutY="22.0" prefHeight="54.0" prefWidth="150.0" text="Secret Recipe">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-      </children>
-    </AnchorPane>
-  </children>
-</VBox>
+
+<AnchorPane fx:id="registrationPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegistrationController">
+<children>
+      <Label layoutX="170.0" layoutY="143.0" text="Vorname:" />
+      <Label layoutX="166.0" layoutY="174.0" text="Nachname:" />
+      <Label layoutX="165.0" layoutY="207.0" text="Benutzername:" />
+      <Label layoutX="165.0" layoutY="240.0" text="Passwort:" />
+      <TextField fx:id="firstNameField" layoutX="282.0" layoutY="139.0" />
+      <TextField fx:id="surnameField" layoutX="282.0" layoutY="170.0" />
+      <TextField fx:id="usernameField" layoutX="282.0" layoutY="203.0" />
+      <PasswordField fx:id="passwordField" layoutX="282.0" layoutY="236.0" />
+      <Button fx:id="registerButton" layoutX="294.0" layoutY="281.0" mnemonicParsing="false" onAction="#registerUser" text="Registrieren" />
+      <Label layoutX="64.0" layoutY="22.0" prefHeight="54.0" prefWidth="150.0" text="Secret Recipe">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" onAction="#backToLastView" text="Zurück" />
+</children>
+</AnchorPane>

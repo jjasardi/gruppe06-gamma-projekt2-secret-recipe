@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class RegistrationController {
     @FXML
@@ -16,9 +17,11 @@ public class RegistrationController {
     private PasswordField passwordField;
     @FXML
     private Button registerButton;
+    @FXML
+    private AnchorPane registrationPane;
 
     @FXML
-    public void initialize() {        
+    public void initialize() {
     }
 
     @FXML
@@ -27,6 +30,15 @@ public class RegistrationController {
     }
 
     private boolean checkIfUsernameAlreadyTaken(String text) {
-        
+        return false;
+    }
+
+    @FXML
+    private void backToLastView() {
+        goToLastView();
+    }
+
+    private void goToLastView() {
+        registrationPane.getScene().setRoot(screens.get(App.LOGIN));
     }
 }
