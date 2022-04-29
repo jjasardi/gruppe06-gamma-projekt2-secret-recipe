@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NewRecipeController {
+public class NewRecipeController implements ScreenController{
     private User user;
     private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
@@ -114,5 +114,10 @@ public class NewRecipeController {
 
     private void goToLastView() {
         root.getScene().setRoot(screens.get(App.START));
+    }
+
+    @Override
+    public void setScreenList(HashMap<String, Parent> screens) {
+        this.screens = screens;
     }
 }
