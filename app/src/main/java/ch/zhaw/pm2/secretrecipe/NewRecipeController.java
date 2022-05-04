@@ -12,22 +12,15 @@ import javafx.scene.paint.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class NewRecipeController implements ScreenController{
+public class NewRecipeController implements ScreenController {
     private User user;
     private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
     private List<String> entredAuthiorizedUsers = new ArrayList<>();
-    private static final Logger logger = Logger.getLogger("NewRecipeLogger");
-
-    @FXML
-    private TextArea authorizedUsers;
 
     @FXML
     private TextArea description;
@@ -59,13 +52,12 @@ public class NewRecipeController implements ScreenController{
         String nameRecipe = recipeName.getText();
         String ingredientsRecipe = ingredients.getText();
         String describtionRecipe = description.getText();
-        String usersRecipe = authorizedUsers.getText();
 
-        if(handleNameRecipeEmpty(nameRecipe) && handleIngredientsEmpty(ingredientsRecipe) && handleDescriptionEmpty(describtionRecipe)){
+        if (!manageEmptyInput()) {
             Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
             user.getRecipeListe().add(currentRecipe);
             root.getScene().setRoot(screens.get(App.START));
-            try {
+            try { //TODO ersetzten mit methode von database class
                 ObjectOutputStream recipe = new ObjectOutputStream(new FileOutputStream(currentRecipe.getName()));
                 recipe.writeObject(currentRecipe);
             } catch (IOException e) {
@@ -80,36 +72,21 @@ public class NewRecipeController implements ScreenController{
         entredUserToAuthorize.clear();
     }
 
-    private boolean handleDescriptionEmpty(String describtionRecipe) {
-        boolean inputIsEmtpy = true;
-        if(describtionRecipe.matches("")) {
-            errorInfo(Color.RED, description);
-            return false;
+    private boolean manageEmptyInput() {
+        boolean isEmpty = false;
+        TextInputControl[] contents = {recipeName, ingredients, description};
+        for (TextInputControl content : contents) {
+            if (content.getText().equals("")) {
+                isEmpty = true;
+                errorInfo(Color.RED, content);
+            }
         }
-        return true;
+        return isEmpty;
     }
 
-    private boolean handleIngredientsEmpty(String ingredientsRecipe) {
-        boolean inputIsEmtpy = true;
-        if(ingredientsRecipe.matches("")) {
-            errorInfo(Color.RED, ingredients);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean handleNameRecipeEmpty(String nameRecipe) {
-        boolean inputIsEmtpy = true;
-        if(nameRecipe.matches("")) {
-            errorInfo(Color.RED, recipeName);
-            return false;
-        }
-        return true;
-    }
-
-    private void errorInfo(Color color, TextInputControl text) {
-        text.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        text.setText("Bitte nicht leer lassen!");
+    private void errorInfo(Color color, TextInputControl content) {
+        content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        content.setText("Bitte nicht leer lassen!");
     }
 
     private void goToLastView() {
