@@ -68,4 +68,8 @@ public class User implements Serializable {
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
     }
+
+    public void setRecipeAuthorization(Recipe currentRecipe) {
+        recipeList.add(currentRecipe);
+    }
 }

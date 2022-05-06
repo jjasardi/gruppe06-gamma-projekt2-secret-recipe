@@ -20,6 +20,7 @@ public class NewRecipeController implements ScreenController {
     private User user;
     private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
+    private DataManager dataManager;
     private List<String> entredAuthiorizedUsers = new ArrayList<>();
 
     @FXML
@@ -55,14 +56,16 @@ public class NewRecipeController implements ScreenController {
 
         if (!manageEmptyInput()) {
             Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
-            user.getRecipeListe().add(currentRecipe);
-            root.getScene().setRoot(screens.get(App.START));
-            try { //TODO ersetzten mit methode von database class
-                ObjectOutputStream recipe = new ObjectOutputStream(new FileOutputStream(currentRecipe.getName()));
-                recipe.writeObject(currentRecipe);
-            } catch (IOException e) {
-                e.printStackTrace();
+            dataManager = dataManager.getInstance();
+            dataManager.addRecipe(currentRecipe);
+            for(String userName : entredAuthiorizedUsers) {
+                for(User user : dataManager.getUserList()) {
+                    if(user.getUsername().equals(userName)) {
+                        user.setRecipeAuthorization(currentRecipe);
+                    }
+                }
             }
+            root.getScene().setRoot(screens.get(App.START));
         }
     }
 
