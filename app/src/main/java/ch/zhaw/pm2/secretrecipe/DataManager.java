@@ -30,4 +30,12 @@ public class DataManager {
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
     }
+
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
+    public void addRecipe(Recipe recipe) {
+        recipeList.add(recipe);
+    }
 }
