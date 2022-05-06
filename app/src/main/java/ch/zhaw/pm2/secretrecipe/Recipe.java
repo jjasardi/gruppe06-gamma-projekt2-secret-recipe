@@ -1,9 +1,12 @@
 package ch.zhaw.pm2.secretrecipe;
 
+import java.io.Serializable;
+
 /**
  *
  */
-public class Recipe {
+public class Recipe implements Serializable {
+    private static final long serialVersionUID = 20L;
     private String name;
     private String ingredients;
     private String description;
