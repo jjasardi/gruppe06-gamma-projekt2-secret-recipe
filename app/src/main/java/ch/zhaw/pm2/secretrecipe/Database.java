@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.secretrecipe;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Database {
-    private static final String DATA_FILE = "data.dat";
+    private static final String DATA_FILE_PATH = "database" + File.separator + "data.dat";
 
     private Database() {
         throw new IllegalStateException("Utility class");
@@ -18,7 +19,7 @@ public abstract class Database {
 
     public static List<User> getUserListFromFile() {
         List<User> userListFromFile = new ArrayList<>();
-        try (ObjectInputStream objInStream = new ObjectInputStream(new FileInputStream(DATA_FILE));) {
+        try (ObjectInputStream objInStream = new ObjectInputStream(new FileInputStream(DATA_FILE_PATH));) {
             userListFromFile = (ArrayList<User>) objInStream.readObject();
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
@@ -32,8 +33,8 @@ public abstract class Database {
 
     public static List<Recipe> getRecipeListFromFile() {
         List<Recipe> recipeListFromFile = new ArrayList<>();
-        try (ObjectInputStream objInStream = new ObjectInputStream(new FileInputStream(DATA_FILE));) {
-            objInStream.readObject();
+        try (ObjectInputStream objInStream = new ObjectInputStream(new FileInputStream(DATA_FILE_PATH));) {
+            objInStream.readObject(); // to skip the user list
             recipeListFromFile = (ArrayList<Recipe>) objInStream.readObject();
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
@@ -46,7 +47,9 @@ public abstract class Database {
     }
 
     public static void saveDataToFile(List<User> userList, List<Recipe> recipeList) {
-        try (ObjectOutputStream objOutStream = new ObjectOutputStream(new FileOutputStream(DATA_FILE));) {
+        File dataFile = new File(DATA_FILE_PATH);
+        dataFile.getParentFile().mkdirs();
+        try (ObjectOutputStream objOutStream = new ObjectOutputStream(new FileOutputStream(dataFile));) {
             objOutStream.writeObject(userList);
             objOutStream.writeObject(recipeList);
         } catch (FileNotFoundException e) {
