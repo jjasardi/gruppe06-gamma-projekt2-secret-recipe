@@ -1,12 +1,14 @@
 package ch.zhaw.pm2.secretrecipe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 10L;
     private String firstname;
     private String surname;
     private String username;
