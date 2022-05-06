@@ -38,7 +38,7 @@ public class App extends Application {
 
     private void startView(Stage stage) {
         try {
-            Scene scene = new Scene(screens.get(START));
+            Scene scene = new Scene(screens.get(Config.LOGIN));
 
             // configure and show stage
             stage.setScene(scene);
@@ -62,7 +62,7 @@ public class App extends Application {
             controlledScreen.setScreenList(screens);
             screens.put(name, loadScreen);
         } catch (Exception e) {
-            System.out.println("Fehler: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             e.getMessage();
         }
     }
