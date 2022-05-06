@@ -14,8 +14,8 @@ import java.util.List;
 
 public class LoginController implements ScreenController{
     private HashMap<String, Parent> screens = new HashMap<>();
-    private List<User> userList = new ArrayList<>();
-    User user;
+    private DataManager dataManager;
+    private Session session;
 
     @FXML
     private TextField usernameField;
@@ -27,13 +27,22 @@ public class LoginController implements ScreenController{
     @FXML
     void loginUser(ActionEvent event) {
         try {
+            dataManager = dataManager.getInstance();
+            session = session.getInstance();
             String userName = usernameField.getText();
             String password = passwordField.getText();
-            if(!userList.contains(user)) {
-                throw new InvalidUserEntry("Invalid user entry!");
+            for(User user : dataManager.getUserList()) {
+                if(user.getUsername().equals(userName) && user.getPassword().equals(password)) {
+                    session.setLoggedInUser(user);
+                    root.getScene().setRoot(screens.get(App.START));
+                }
             }
-        } catch (InvalidUserEntry exception) {
 
+            throw new InvalidUserEntry("Invalid user entry!");
+            
+        } catch (InvalidUserEntry exception) {
+            usernameField.setText("Falscher Benutzername!");
+            passwordField.setText("Falsches Passwort!");
         }
     }
 

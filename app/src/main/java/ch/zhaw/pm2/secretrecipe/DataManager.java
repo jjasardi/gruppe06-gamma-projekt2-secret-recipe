@@ -3,12 +3,20 @@ package ch.zhaw.pm2.secretrecipe;
 import java.util.List;
 
 public class DataManager {
+    private static DataManager dataManager;
     private List<User> userList;
     private List<Recipe> recipeList;
 
-    public DataManager() {
+    private DataManager() {
         userList = Database.getUserListFromFile();
         recipeList = Database.getRecipeListFromFile();
+    }
+
+    public static DataManager getInstance() {
+        if(dataManager == null) {
+            dataManager = new DataManager();
+        }
+        return dataManager;
     }
 
     public void saveData() {
