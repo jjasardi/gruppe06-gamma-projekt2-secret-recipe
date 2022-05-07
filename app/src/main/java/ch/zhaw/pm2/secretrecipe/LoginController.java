@@ -34,7 +34,7 @@ public class LoginController implements ScreenController{
             for(User user : dataManager.getUserList()) {
                 if(user.getUsername().equals(userName) && user.getPassword().equals(password)) {
                     session.setLoggedInUser(user);
-                    root.getScene().setRoot(screens.get(App.START));
+                    root.getScene().setRoot(screens.get(Config.START));
                 }
             }
 
@@ -48,7 +48,7 @@ public class LoginController implements ScreenController{
 
     @FXML
     void switchToRegisterView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.REGISTRATION));
+        root.getScene().setRoot(screens.get(Config.REGISTRATION));
     }
 
     @Override

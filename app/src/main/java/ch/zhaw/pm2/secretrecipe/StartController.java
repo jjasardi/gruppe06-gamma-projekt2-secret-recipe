@@ -34,7 +34,7 @@ public class StartController implements ControlledScreens {
     }
 
     private void setNewScene() {
-        root.getScene().setRoot(screens.get(App.NEWRECIPE));
+        root.getScene().setRoot(screens.get(Config.NEWRECIPE));
 
         //we will use it later to generate the recipe icons
 //        Label label = new Label("Wesh");

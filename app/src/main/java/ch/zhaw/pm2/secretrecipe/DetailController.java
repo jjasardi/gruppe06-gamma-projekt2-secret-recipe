@@ -41,7 +41,7 @@ public class DetailController implements ScreenController{
 
     @FXML
     void backToLastView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.START));
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     @FXML
@@ -85,4 +85,6 @@ public class DetailController implements ScreenController{
         this.screens = screens;
     }
 
+    public void deleteRecipe(ActionEvent actionEvent) {
+    }
 }

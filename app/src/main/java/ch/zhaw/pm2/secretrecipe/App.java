@@ -50,8 +50,11 @@ public class App extends Application {
     }
 
     private void loadAllScreens() {
-        loadScreen(START, START_FILE);
-        loadScreen(NEWRECIPE, NEWRECIPE_FILE);
+        loadScreen(Config.LOGIN, Config.LOGIN_FILE);
+        loadScreen(Config.REGISTRATION, Config.REGISTRATION_FILE);
+        loadScreen(Config.START, Config.START_FILE);
+        loadScreen(Config.NEWRECIPE, Config.NEWRECIPE_FILE);
+        loadScreen(Config.DETAIL, Config.DETAIL_FILE);
     }
 
     private void loadScreen(String name, String fileName) {

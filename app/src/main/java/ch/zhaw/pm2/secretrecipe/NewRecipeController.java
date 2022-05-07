@@ -65,7 +65,7 @@ public class NewRecipeController implements ScreenController {
                     }
                 }
             }
-            root.getScene().setRoot(screens.get(App.START));
+            root.getScene().setRoot(screens.get(Config.START));
         }
     }
 
@@ -93,7 +93,7 @@ public class NewRecipeController implements ScreenController {
     }
 
     private void goToLastView() {
-        root.getScene().setRoot(screens.get(App.START));
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     @Override

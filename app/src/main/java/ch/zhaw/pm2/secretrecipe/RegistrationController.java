@@ -38,7 +38,7 @@ public class RegistrationController implements ScreenController {
 
     @FXML
     private void backToLoginView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.LOGIN));
+        root.getScene().setRoot(screens.get(Config.LOGIN));
     }
 
     @FXML
@@ -56,7 +56,7 @@ public class RegistrationController implements ScreenController {
     }
 
     private void goToStartView() {
-        root.getScene().setRoot(screens.get(App.START));
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     private boolean isUsernameTaken(String username) {
