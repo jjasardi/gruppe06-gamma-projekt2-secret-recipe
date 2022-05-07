@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.model;
 
 import java.io.File;
 import java.io.FileInputStream;

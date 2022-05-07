@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="395.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.secretrecipe.StartController">
+<AnchorPane fx:id="root" prefHeight="395.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.secretrecipe.ui.StartController">
    <children>
       <ScrollPane layoutY="61.0">
          <content>

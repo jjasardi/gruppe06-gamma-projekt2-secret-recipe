@@ -1,16 +1,19 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.model.DataManager;
+import ch.zhaw.pm2.secretrecipe.model.Session;
+import ch.zhaw.pm2.secretrecipe.model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
 
 import java.util.HashMap;
 
-public class RegistrationController implements ScreenController {
+public class RegistrationController implements ControlledScreens {
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private Session session;
@@ -38,7 +41,7 @@ public class RegistrationController implements ScreenController {
 
     @FXML
     private void backToLoginView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.LOGIN));
+        root.getScene().setRoot(screens.get(Config.LOGIN));
     }
 
     @FXML
@@ -48,7 +51,7 @@ public class RegistrationController implements ScreenController {
         String surname = surnameField.getText();
         String password = passwordField.getText();
         if (!isUsernameTaken(username)) {
-            User newUser = new User(firstname, surname, username, password)
+            User newUser = new User(firstname, surname, username, password);
             dataManager.addUser(newUser);
             session.setLoggedInUser(newUser);
             goToStartView();
@@ -56,7 +59,7 @@ public class RegistrationController implements ScreenController {
     }
 
     private void goToStartView() {
-        root.getScene().setRoot(screens.get(App.START));
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     private boolean isUsernameTaken(String username) {

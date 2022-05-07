@@ -1,5 +1,9 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.model.DataManager;
+import ch.zhaw.pm2.secretrecipe.model.Recipe;
+import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -9,16 +13,12 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NewRecipeController implements ScreenController {
+public class NewRecipeController implements ControlledScreens {
     private User user;
-    private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private List<String> entredAuthiorizedUsers = new ArrayList<>();
@@ -65,7 +65,7 @@ public class NewRecipeController implements ScreenController {
                     }
                 }
             }
-            root.getScene().setRoot(screens.get(App.START));
+            root.getScene().setRoot(screens.get(Config.START));
         }
     }
 
@@ -93,7 +93,7 @@ public class NewRecipeController implements ScreenController {
     }
 
     private void goToLastView() {
-        root.getScene().setRoot(screens.get(App.START));
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     @Override

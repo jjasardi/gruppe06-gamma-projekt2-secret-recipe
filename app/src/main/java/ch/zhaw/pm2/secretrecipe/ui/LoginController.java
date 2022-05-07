@@ -1,18 +1,20 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.InvalidUserEntry;
+import ch.zhaw.pm2.secretrecipe.model.DataManager;
+import ch.zhaw.pm2.secretrecipe.model.Session;
+import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class LoginController implements ScreenController{
+public class LoginController implements ControlledScreens {
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private Session session;
@@ -34,7 +36,7 @@ public class LoginController implements ScreenController{
             for(User user : dataManager.getUserList()) {
                 if(user.getUsername().equals(userName) && user.getPassword().equals(password)) {
                     session.setLoggedInUser(user);
-                    root.getScene().setRoot(screens.get(App.START));
+                    root.getScene().setRoot(screens.get(Config.START));
                 }
             }
 
@@ -48,7 +50,7 @@ public class LoginController implements ScreenController{
 
     @FXML
     void switchToRegisterView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.REGISTRATION));
+        root.getScene().setRoot(screens.get(Config.REGISTRATION));
     }
 
     @Override

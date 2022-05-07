@@ -1,16 +1,19 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.model.Recipe;
+import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class DetailController implements ScreenController{
+public class DetailController implements ControlledScreens {
     private Recipe recipe;
     private User user;
     private HashMap<String, Parent> screens = new HashMap<>();
@@ -19,13 +22,13 @@ public class DetailController implements ScreenController{
     private TextArea authorizedUsers;
 
     @FXML
+    private Label recipeName;
+
+    @FXML
     private TextArea description;
 
     @FXML
     private TextArea ingredients;
-
-    @FXML
-    private TextField recipeName;
 
     @FXML
     private AnchorPane root;
@@ -41,7 +44,7 @@ public class DetailController implements ScreenController{
 
     @FXML
     void backToLastView(ActionEvent event) {
-        root.getScene().setRoot(screens.get(App.START));
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     @FXML
@@ -85,4 +88,6 @@ public class DetailController implements ScreenController{
         this.screens = screens;
     }
 
+    public void deleteRecipe(ActionEvent actionEvent) {
+    }
 }

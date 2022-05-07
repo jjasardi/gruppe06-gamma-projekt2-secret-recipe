@@ -1,5 +1,6 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -34,7 +35,7 @@ public class StartController implements ControlledScreens {
     }
 
     private void setNewScene() {
-        root.getScene().setRoot(screens.get(App.NEWRECIPE));
+        root.getScene().setRoot(screens.get(Config.NEWRECIPE));
 
         //we will use it later to generate the recipe icons
 //        Label label = new Label("Wesh");
