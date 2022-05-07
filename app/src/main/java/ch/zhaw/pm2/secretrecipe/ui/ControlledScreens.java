@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
 import javafx.scene.Parent;
 

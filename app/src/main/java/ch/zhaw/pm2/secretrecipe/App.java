@@ -1,5 +1,7 @@
 package ch.zhaw.pm2.secretrecipe;
 
+import ch.zhaw.pm2.secretrecipe.model.DataManager;
+import ch.zhaw.pm2.secretrecipe.ui.ControlledScreens;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

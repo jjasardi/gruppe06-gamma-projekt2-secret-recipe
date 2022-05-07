@@ -1,5 +1,8 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.model.Recipe;
+import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -10,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import java.util.HashMap;
 import java.util.List;
 
-public class DetailController implements ControlledScreens{
+public class DetailController implements ControlledScreens {
     private Recipe recipe;
     private User user;
     private HashMap<String, Parent> screens = new HashMap<>();

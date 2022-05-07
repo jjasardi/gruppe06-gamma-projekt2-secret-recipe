@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

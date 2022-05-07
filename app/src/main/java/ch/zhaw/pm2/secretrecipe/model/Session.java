@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.model;
 
 public class Session {
     private static Session session;
