@@ -2,7 +2,7 @@ package ch.zhaw.pm2.secretrecipe;
 
 public class InvalidUserEntry extends Exception{
 
-    InvalidUserEntry(String errorMessage) {
+    public InvalidUserEntry(String errorMessage) {
         super(errorMessage);
     }
 }
