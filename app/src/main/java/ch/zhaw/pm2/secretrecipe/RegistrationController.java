@@ -1,12 +1,11 @@
 package ch.zhaw.pm2.secretrecipe;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
 
 import java.util.HashMap;
 
@@ -48,7 +47,7 @@ public class RegistrationController implements ControlledScreens {
         String surname = surnameField.getText();
         String password = passwordField.getText();
         if (!isUsernameTaken(username)) {
-            User newUser = new User(firstname, surname, username, password)
+            User newUser = new User(firstname, surname, username, password);
             dataManager.addUser(newUser);
             session.setLoggedInUser(newUser);
             goToStartView();
