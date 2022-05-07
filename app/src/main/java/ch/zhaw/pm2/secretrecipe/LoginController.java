@@ -3,16 +3,13 @@ package ch.zhaw.pm2.secretrecipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class LoginController implements ScreenController{
+public class LoginController implements ControlledScreens{
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private Session session;

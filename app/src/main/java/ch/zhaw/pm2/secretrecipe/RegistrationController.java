@@ -10,7 +10,7 @@ import javafx.event.ActionEvent;
 
 import java.util.HashMap;
 
-public class RegistrationController implements ScreenController {
+public class RegistrationController implements ControlledScreens {
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private Session session;

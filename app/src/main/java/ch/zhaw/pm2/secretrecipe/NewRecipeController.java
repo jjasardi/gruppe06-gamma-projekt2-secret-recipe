@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NewRecipeController implements ScreenController {
+public class NewRecipeController implements ControlledScreens {
     private User user;
-    private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private List<String> entredAuthiorizedUsers = new ArrayList<>();
