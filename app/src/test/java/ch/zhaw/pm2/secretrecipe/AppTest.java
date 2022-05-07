@@ -3,8 +3,8 @@
  */
 package ch.zhaw.pm2.secretrecipe;
 
+import ch.zhaw.pm2.secretrecipe.ui.App;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
     @Test void appHasAGreeting() {

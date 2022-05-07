@@ -1,5 +1,6 @@
-package ch.zhaw.pm2.secretrecipe;
+package ch.zhaw.pm2.secretrecipe.ui;
 
+import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.ui.ControlledScreens;
 import javafx.application.Application;
