@@ -3,7 +3,11 @@ package ch.zhaw.pm2.secretrecipe;
 /**
  *
  */
-public class Config {
+public final class Config {
+
+    private Config() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static final String START = "Start";
     public static final String START_FILE = "/views/Start.fxml";
