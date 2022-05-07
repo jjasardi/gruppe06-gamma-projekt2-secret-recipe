@@ -1,5 +1,9 @@
 package ch.zhaw.pm2.secretrecipe;
 
+import ch.zhaw.pm2.secretrecipe.model.Database;
+import ch.zhaw.pm2.secretrecipe.model.Recipe;
+import ch.zhaw.pm2.secretrecipe.model.User;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -8,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class DatabaseTest {
 
@@ -55,28 +58,28 @@ class DatabaseTest {
     @Test
     void testUsersAreSavedInFile() {
         //do
-        Database.saveUsers(userList);
-        List<User> readedUserList = Database.loadUsers();
+        Database.saveDataToFile(userList, recipeList);
+        List<User> readedUserList = Database.getUserListFromFile();
 
         //assert
-        assertIterableEquals(userList, readedUserList);
+        assertEquals(userList.size(), readedUserList.size());
     }
 
     @Test
     void testRecipesAreSavedInFile() {
         //do
-        Database.saveRecipes(recipeList);
-        List<Recipe> readedRecipeList = Database.loadRecipes();
+        Database.saveDataToFile(userList, recipeList);
+        List<Recipe> readedRecipeList = Database.getRecipeListFromFile();
 
         //assert
-        assertIterableEquals(recipeList, readedRecipeList);
+        assertEquals(recipeList.size(), readedRecipeList.size());
     }
 
     @Test
     void testRecipeOwnerHasTheSameReferenceThanTheUser() {
         //do
-        Database.saveRecipes(recipeList);
-        List<Recipe> readedRecipeList = Database.loadRecipes();
+        Database.saveDataToFile(userList, recipeList);
+        List<Recipe> readedRecipeList = Database.getRecipeListFromFile();
 
         //assert
         assertEquals(readedRecipeList.get(0).getOwner(), readedRecipeList.get(2).getOwner());
@@ -87,15 +90,15 @@ class DatabaseTest {
         //do
         mockedRecipe1.setName("Cêpes");
 
-        Database.saveRecipes(recipeList);
-        List<Recipe> readedRecipeList = Database.loadRecipes;
+        Database.saveDataToFile(userList, recipeList);
+        List<Recipe> readedRecipeList = Database.getRecipeListFromFile();
 
         //assert
         assertEquals(readedRecipeList.get(0).getName(), mockedRecipe1.getName());
     }
 
     @Test
-    void testFileIsAlwaysOvewrittenWhenSave() {
+    void testFileIsAlwaysOverwrittenWhenSave() {
         //do
         mockedUser3 = new User("Chuck", "Norris", "chnorris", "54321Test");
         userList.add(mockedUser3);
@@ -103,10 +106,10 @@ class DatabaseTest {
         userList.remove(0);
         userList.remove(1);
 
-        Database.saveUsers(userList);
-        List<Recipe> readedRecipeList = Database.loadUsers;
+        Database.saveDataToFile(userList, recipeList);
+        List<User> readedUserList = Database.getUserListFromFile();
 
         //assert
-        assertEquals(userList.size(), readedRecipeList.size());
+        assertEquals(userList.size(), readedUserList.size());
     }
 }
