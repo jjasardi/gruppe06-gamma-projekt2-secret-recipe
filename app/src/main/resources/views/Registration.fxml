@@ -71,7 +71,7 @@
       <Button layoutY="1.0" mnemonicParsing="false" onAction="#backToLoginView" text="Zurück" />
       <ImageView fitHeight="117.0" fitWidth="117.0" layoutX="262.0">
          <image>
-            <Image url="@LogoSecretRecipe.jpg" />
+            <Image url="@../images/LogoSecretRecipe.jpg" />
          </image>
       </ImageView>
 </children>

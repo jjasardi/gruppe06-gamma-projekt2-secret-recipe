@@ -90,7 +90,7 @@
             </GridPane>
             <ImageView fitHeight="97.0" fitWidth="101.0">
                <image>
-                  <Image url="@LogoSecretRecipe.jpg" />
+                  <Image url="@../images/LogoSecretRecipe.jpg" />
                </image>
             </ImageView>
          </children>
