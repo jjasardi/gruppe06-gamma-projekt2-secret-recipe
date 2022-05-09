@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
@@ -29,28 +31,56 @@ public class LoginController implements ControlledScreens {
     @FXML
     void loginUser(ActionEvent event) {
         try {
-            dataManager = dataManager.getInstance();
-            session = session.getInstance();
-            String userName = usernameField.getText();
-            String password = passwordField.getText();
-            for(User user : dataManager.getUserList()) {
-                if(user.getUsername().equals(userName) && user.getPassword().equals(password)) {
-                    session.setLoggedInUser(user);
-                    root.getScene().setRoot(screens.get(Config.START));
+            if (!manageEmptyInput()) {
+                dataManager = dataManager.getInstance();
+                session = session.getInstance();
+                String userName = usernameField.getText();
+                String password = passwordField.getText();
+                for (User user : dataManager.getUserList()) {
+                    if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
+                        session.setLoggedInUser(user);
+                        root.getScene().setRoot(screens.get(Config.START));
+                    } else {
+                        throw new InvalidUserEntry("Invalid user entry!");
+                    }
                 }
             }
-
-            throw new InvalidUserEntry("Invalid user entry!");
-            
         } catch (InvalidUserEntry exception) {
-            usernameField.setText("Falscher Benutzername!");
-            passwordField.setText("Falsches Passwort!");
+            errorInfoInvalidEntry(Color.RED, usernameField);
+            errorInfoInvalidEntry(Color.RED, passwordField);
         }
     }
 
     @FXML
     void switchToRegisterView(ActionEvent event) {
         root.getScene().setRoot(screens.get(Config.REGISTRATION));
+    }
+
+    private boolean manageEmptyInput() {
+        boolean isEmpty = false;
+        TextInputControl[] contents = {usernameField, passwordField};
+        for (TextInputControl content : contents) {
+            if (usernameField.getText().equals("")) {
+                isEmpty = true;
+                errorInfoEmpty(Color.RED, content);
+            }
+        }
+        return isEmpty;
+    }
+
+    private static void errorInfoEmpty(Color color, TextInputControl content) {
+        content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        if (content.getText().equals("")) {
+            content.setPromptText("Bitte nicht leer lassen!");
+        } else {
+            content.setPromptText("Ungültige Eingabe!");
+        }
+    }
+
+    private static void errorInfoInvalidEntry(Color color, TextInputControl content) {
+        content.clear();
+        content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        content.setPromptText("unbekannter User!");
     }
 
     @Override
