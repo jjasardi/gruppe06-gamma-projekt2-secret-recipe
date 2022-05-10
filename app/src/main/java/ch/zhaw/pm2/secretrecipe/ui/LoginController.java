@@ -72,15 +72,13 @@ public class LoginController implements ControlledScreens {
         content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         if (content.getText().equals("")) {
             content.setPromptText("Bitte nicht leer lassen!");
-        } else {
-            content.setPromptText("Ungültige Eingabe!");
         }
     }
 
     private static void errorInfoInvalidEntry(Color color, TextInputControl content) {
         content.clear();
         content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        content.setPromptText("unbekannter User!");
+        content.setPromptText("fehlerhafte Eingabe!");
     }
 
     @Override

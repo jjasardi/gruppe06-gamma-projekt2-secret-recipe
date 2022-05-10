@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
@@ -50,11 +52,32 @@ public class RegistrationController implements ControlledScreens {
         String firstname = fistnameField.getText();
         String surname = surnameField.getText();
         String password = passwordField.getText();
-        if (!isUsernameTaken(username)) {
-            User newUser = new User(firstname, surname, username, password);
-            dataManager.addUser(newUser);
-            session.setLoggedInUser(newUser);
-            goToStartView();
+        if(!manageEmptyInput()) {
+            if (!isUsernameTaken(username)) {
+                User newUser = new User(firstname, surname, username, password);
+                dataManager.addUser(newUser);
+                session.setLoggedInUser(newUser);
+                goToStartView();
+            }
+        }
+    }
+
+    private boolean manageEmptyInput() {
+        boolean emptyInput = false;
+        TextInputControl[] contents = {usernameField, fistnameField, surnameField, passwordField};
+        for(TextInputControl content : contents) {
+            if(content.getText().equals("")) {
+                emptyInput = true;
+                errorInfoEmpty(Color.RED, content);
+            }
+        }
+        return emptyInput;
+    }
+
+    private static void errorInfoEmpty(Color color, TextInputControl content) {
+        content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        if (content.getText().equals("")) {
+            content.setPromptText("Bitte nicht leer lassen!");
         }
     }
 

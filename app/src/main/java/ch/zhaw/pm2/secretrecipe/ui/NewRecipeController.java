@@ -87,9 +87,9 @@ public class NewRecipeController implements ControlledScreens {
         return isEmpty;
     }
 
-    private void errorInfo(Color color, TextInputControl content) {
+    private static void errorInfo(Color color, TextInputControl content) {
         content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        content.setText("Bitte nicht leer lassen!");
+        content.setPromptText("Bitte nicht leer lassen!");
     }
 
     private void goToLastView() {
