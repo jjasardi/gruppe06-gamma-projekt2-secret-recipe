@@ -89,9 +89,9 @@
                   <Label text="Person authorisieren:" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#addUser" text="Person hinzufügen" />
+                        <Button fx:id="addUserToAuthorizeButton" mnemonicParsing="false" onAction="#addUserToAuthorize" text="Person hinzufügen" />
                      </children></HBox>
-                  <TextField fx:id="entredUserToAuthorize" promptText="Benutzername der Person" GridPane.rowIndex="1" />
+                  <TextField fx:id="userToAuthorizeTextField" promptText="Benutzername der Person" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <TextField fx:id="recipeName" promptText="Bitte Rezeptname hinzufügen!" GridPane.columnIndex="1" />
