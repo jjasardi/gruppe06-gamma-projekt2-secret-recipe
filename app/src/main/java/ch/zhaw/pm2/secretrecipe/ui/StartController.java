@@ -72,11 +72,15 @@ public class StartController implements ControlledScreens {
         anchorPane.getChildren().add(label);
         anchorPaneToRecipe.put(anchorPane, recipe);
 
-        //we will use it later to generate the recipe icons
-//        Label label = new Label("Wesh");
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.getChildren().add(label);
-//        gridPane.getChildren().add(anchorPane);
+        return anchorPane;
+    }
+
+    private int getColumnOfRecipe(int index, int columnCount) {
+        return index % (columnCount+1);
+    }
+
+    private int getRowOfRecipe(int index, int columnCount) {
+        return index / (columnCount+1);
     }
 
     @Override
