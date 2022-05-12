@@ -64,6 +64,13 @@ public class StartController implements ControlledScreens {
 
     private void setNewScene() {
         root.getScene().setRoot(screens.get(Config.NEWRECIPE));
+    }
+
+    private AnchorPane createAnchorPaneRecipeElement(Recipe recipe) {
+        Label label = new Label(recipe.getName());
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(label);
+        anchorPaneToRecipe.put(anchorPane, recipe);
 
         //we will use it later to generate the recipe icons
 //        Label label = new Label("Wesh");
