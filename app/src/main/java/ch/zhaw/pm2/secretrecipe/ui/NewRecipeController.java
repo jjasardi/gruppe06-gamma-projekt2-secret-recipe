@@ -60,9 +60,9 @@ public class NewRecipeController implements ControlledScreens {
         removeUserFromAuthorizeListButton.disableProperty()
                 .bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
 
-        saveButton.disableProperty().bind(Bindings.isEmpty(recipeName.textProperty())
-                .or(Bindings.isEmpty(ingredients.textProperty()))
-                .or(Bindings.isEmpty(description.textProperty())));
+        saveButton.disableProperty().bind(Bindings.isEmpty(recipeNameTextField.textProperty())
+                .or(Bindings.isEmpty(ingredientsTextArea.textProperty()))
+                .or(Bindings.isEmpty(descriptionTextArea.textProperty())));
       
         StartController.recipeClickedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
