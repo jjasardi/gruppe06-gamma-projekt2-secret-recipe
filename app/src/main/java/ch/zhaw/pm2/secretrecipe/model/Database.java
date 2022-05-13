@@ -9,9 +9,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class Database {
     private static final String DATA_FILE_PATH = "database" + File.separator + "data.dat";
+    private static final Logger logger = Logger.getLogger("DatabaaseLogger");
 
     private Database() {
         throw new IllegalStateException("Utility class");
@@ -22,11 +25,11 @@ public abstract class Database {
         try (ObjectInputStream objInStream = new ObjectInputStream(new FileInputStream(DATA_FILE_PATH));) {
             userListFromFile = (ArrayList<User>) objInStream.readObject();
         } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
+            logger.log(Level.INFO, "File not found! " +e.getMessage());
         } catch (IOException e) {
-            System.err.println("IO error: " + e.getMessage());
+            logger.log(Level.SEVERE, "IO error: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.err.println("class not found: " + e.getMessage());
+            logger.log(Level.SEVERE, "class not found: " + e.getMessage());
         }
         return userListFromFile;
     }
@@ -37,11 +40,11 @@ public abstract class Database {
             objInStream.readObject(); // to skip the user list
             recipeListFromFile = (ArrayList<Recipe>) objInStream.readObject();
         } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
+            logger.log(Level.INFO, "File not found! " +e.getMessage());
         } catch (IOException e) {
-            System.err.println("IO error: " + e.getMessage());
+            logger.log(Level.SEVERE, "IO error: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.err.println("class not found: " + e.getMessage());
+            logger.log(Level.SEVERE, "class not found: " + e.getMessage());
         }
         return recipeListFromFile;
     }
@@ -53,9 +56,9 @@ public abstract class Database {
             objOutStream.writeObject(userList);
             objOutStream.writeObject(recipeList);
         } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
+            logger.log(Level.INFO, "File not found! " +e.getMessage());
         } catch (IOException e) {
-            System.err.println("IO error: " + e.getMessage());
+            logger.log(Level.SEVERE, "IO error: " + e.getMessage());
         }
     }
 }
