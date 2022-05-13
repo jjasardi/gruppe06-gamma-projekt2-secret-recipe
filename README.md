@@ -10,7 +10,7 @@ Focus was to build a first version containing the basic funcionality of the Secr
 ## Authors
 We are a small team of Computer Science students from the Zurich University of Applied Sciences.
 
-- [@unverjoh](https://github.zhaw.ch/unveryoh)
+- [@unveryoh](https://github.zhaw.ch/unveryoh)
 - [@jasarard](https://github.zhaw.ch/jasarard)
 - [@gabricyr](https://github.zhaw.ch/gabricyr)
 
