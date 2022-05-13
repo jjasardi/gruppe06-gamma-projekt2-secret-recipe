@@ -5,10 +5,13 @@ import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -16,14 +19,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class NewRecipeController implements ControlledScreens {
     private User user;
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
-    private Set<String> enteredAuthorizedUsers = new HashSet<>();
+    private ObservableList<String> enteredAuthorizedUsers = FXCollections.observableArrayList();
+
+    @FXML
+    private ListView<String> authorizedUsersListView = new ListView<>();
 
     @FXML
     private TextArea description;
@@ -41,10 +45,14 @@ public class NewRecipeController implements ControlledScreens {
     private Button addUserToAuthorizeButton;
 
     @FXML
+    private Button removeUserToAuthorizeButton;
+
+    @FXML
     private AnchorPane root;
 
     @FXML
     public void initialize() {
+        authorizedUsersListView.setItems(enteredAuthorizedUsers);
         dataManager = DataManager.getInstance();
         addUserToAuthorizeButton.disableProperty().bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
     }
@@ -69,7 +77,7 @@ public class NewRecipeController implements ControlledScreens {
             Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
             dataManager = dataManager.getInstance();
             dataManager.addRecipe(currentRecipe);
-            for (String userName : enteredAuthorizedUsers) {
+            for (String userName : authorizedUsersListView.getItems()) {
                 for (User user : dataManager.getUserList()) {
                     if (user.getUsername().equals(userName)) {
                         user.setRecipeAuthorization(currentRecipe);
@@ -83,8 +91,10 @@ public class NewRecipeController implements ControlledScreens {
     @FXML
     void addUserToAuthorize(ActionEvent event) {
         String username = userToAuthorizeTextField.getText();
-        if (userExists(username)) {
-            enteredAuthorizedUsers.add(userToAuthorizeTextField.getText());
+        if (userExists(username) && !username.equals(user.getUsername())) {
+            if (!enteredAuthorizedUsers.contains(username)) {
+                enteredAuthorizedUsers.add(username);
+            }
             userToAuthorizeTextField.clear();
         } else {
             TextInputControl content = userToAuthorizeTextField;
@@ -99,6 +109,12 @@ public class NewRecipeController implements ControlledScreens {
             }
         }
         return false;
+    }
+
+    @FXML
+    private void removeUserToAuthorize() {
+        int selectedIndex = authorizedUsersListView.getSelectionModel().getSelectedIndex();
+        enteredAuthorizedUsers.remove(selectedIndex);
     }
 
     private boolean manageEmptyInput() {
