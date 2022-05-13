@@ -1,5 +1,8 @@
 package ch.zhaw.pm2.secretrecipe.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,11 +11,11 @@ import java.util.stream.Collectors;
 public class DataManager {
     private static DataManager dataManager;
     private List<User> userList;
-    private List<Recipe> recipeList;
+    private ObservableList<Recipe> recipeList = FXCollections.observableArrayList(new ArrayList<>());
 
     private DataManager() {
         userList = Database.getUserListFromFile();
-        recipeList = Database.getRecipeListFromFile();
+        recipeList = FXCollections.observableArrayList(Database.getRecipeListFromFile());
     }
 
     public static DataManager getInstance() {
@@ -23,7 +26,7 @@ public class DataManager {
     }
 
     public void saveData() {
-        Database.saveDataToFile(userList, recipeList);
+        Database.saveDataToFile(userList, recipeList.stream().collect(Collectors.toList()));
     }
 
     public List<User> getUserList() {
@@ -40,7 +43,7 @@ public class DataManager {
         return authorizedUserList;
     }
 
-    public List<Recipe> getRecipeList() {
+    public ObservableList<Recipe> getRecipeList() {
         return recipeList;
     }
 
@@ -62,14 +65,6 @@ public class DataManager {
             id = Collections.max(ids) + 1;
         }
         return id;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    public void setRecipeList(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
     }
 
     public void addUser(User user) {

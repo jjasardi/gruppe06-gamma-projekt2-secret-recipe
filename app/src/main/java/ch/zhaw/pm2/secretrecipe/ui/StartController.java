@@ -7,6 +7,7 @@ import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -52,14 +53,20 @@ public class StartController implements ControlledScreens {
 
         session.hasLoggedInProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                loggedInUser = session.getLoggedInUser();
-                List<Recipe> usersRecipeList = dataManager.getRecipeList(loggedInUser);
-                List<Recipe> authorizedRecipeList = loggedInUser.getRecipeListe();
-                List<Recipe> recipesToShow = getRecipesToShow(usersRecipeList, authorizedRecipeList);
-
-                fillGridPane(recipesToShow);
+                updateGridPane();
             }
         });
+
+        dataManager.getRecipeList().addListener((ListChangeListener<? super Recipe>) observable -> updateGridPane());
+    }
+
+    private void updateGridPane() {
+        loggedInUser = session.getLoggedInUser();
+        List<Recipe> usersRecipeList = dataManager.getRecipeList(loggedInUser);
+        List<Recipe> authorizedRecipeList = loggedInUser.getRecipeListe();
+        List<Recipe> recipesToShow = getRecipesToShow(usersRecipeList, authorizedRecipeList);
+
+        fillGridPane(recipesToShow);
     }
 
     /**

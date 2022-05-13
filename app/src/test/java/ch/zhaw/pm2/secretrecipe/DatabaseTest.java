@@ -3,7 +3,6 @@ package ch.zhaw.pm2.secretrecipe;
 import ch.zhaw.pm2.secretrecipe.model.Database;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
 import ch.zhaw.pm2.secretrecipe.model.User;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -43,9 +42,9 @@ class DatabaseTest {
         mockedUser1 = new User("Bruce", "Lee", "brlee", "12345");
         mockedUser2 = new User("Jean-Claude", "Van Damme", "jcvdWesh", "admin123");
 
-        mockedRecipe1 = new Recipe("Lasagne", "Zwiebel, Milch", "Beschreibung", mockedUser1);
-        mockedRecipe2 = new Recipe("Macarons Schokolade", "gemahlene Mandeln, Puderzucker, Schokolade", "Zubereitung", mockedUser2);
-        mockedRecipe3 = new Recipe("Macarons Vanille", "gemahlene Mandeln, Puderzucker, Vanille", "Zubereitung", mockedUser1);
+        mockedRecipe1 = new Recipe(0, "Lasagne", "Zwiebel, Milch", "Beschreibung", mockedUser1);
+        mockedRecipe2 = new Recipe(1, "Macarons Schokolade", "gemahlene Mandeln, Puderzucker, Schokolade", "Zubereitung", mockedUser2);
+        mockedRecipe3 = new Recipe(2, "Macarons Vanille", "gemahlene Mandeln, Puderzucker, Vanille", "Zubereitung", mockedUser1);
 
         userList.add(mockedUser1);
         userList.add(mockedUser2);
