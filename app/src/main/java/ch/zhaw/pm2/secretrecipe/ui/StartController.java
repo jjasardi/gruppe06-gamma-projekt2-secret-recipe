@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.secretrecipe.ui;
 
 import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
@@ -25,6 +26,7 @@ public class StartController implements ControlledScreens {
 
     private Session session;
     private User loggedInUser;
+    private DataManager dataManager;
 
     @FXML
     public GridPane gridPane;
@@ -38,11 +40,16 @@ public class StartController implements ControlledScreens {
     @FXML
     void initialize() {
         session = Session.getInstance();
+        dataManager = DataManager.getInstance();
 
         session.hasLoggedInProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 loggedInUser = session.getLoggedInUser();
-                fillGridPane();
+                List<Recipe> usersRecipeList = dataManager.getRecipeList(loggedInUser);
+                List<Recipe> authorizedRecipeList = loggedInUser.getRecipeListe();
+
+                fillGridPane(authorizedRecipeList);
+                fillGridPane(usersRecipeList);
             }
         });
     }
@@ -59,12 +66,11 @@ public class StartController implements ControlledScreens {
         root.getScene().setRoot(screens.get(Config.NEWRECIPE));
     }
 
-    private void fillGridPane() {
-        List<Recipe> userRecipes = loggedInUser.getRecipeListe();
+    private void fillGridPane(List<Recipe> recipeList) {
         int gridColumnCount = gridPane.getColumnCount();
 
-        for (int index = 0; index < userRecipes.size(); index++) {
-            gridPane.add(createAnchorPaneRecipeElement(userRecipes.get(index)),
+        for (int index = 0; index < recipeList.size(); index++) {
+            gridPane.add(createAnchorPaneRecipeElement(recipeList.get(index)),
                     getColumnOfRecipe(index, gridColumnCount),
                     getRowOfRecipe(index, gridColumnCount));
         }

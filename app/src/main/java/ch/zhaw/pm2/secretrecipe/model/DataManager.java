@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.secretrecipe.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataManager {
@@ -29,6 +30,17 @@ public class DataManager {
 
     public List<Recipe> getRecipeList() {
         return recipeList;
+    }
+
+    public List<Recipe> getRecipeList(User user) {
+        List<Recipe> usersRecipeList = new ArrayList<>();
+
+        for (Recipe recipe : recipeList) {
+            if (recipe.getOwner() == user) {
+                usersRecipeList.add(recipe);
+            }
+        }
+        return usersRecipeList;
     }
 
     public void setUserList(List<User> userList) {
