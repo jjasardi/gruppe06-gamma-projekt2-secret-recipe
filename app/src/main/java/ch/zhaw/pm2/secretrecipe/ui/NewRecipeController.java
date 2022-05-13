@@ -22,9 +22,9 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 
 public class NewRecipeController implements ControlledScreens {
-    private User loggedInUser = Session.getInstance().getLoggedInUser();
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
+    private Session session;
     private ObservableList<String> enteredAuthorizedUsers = FXCollections.observableArrayList();
 
     @FXML
@@ -53,8 +53,9 @@ public class NewRecipeController implements ControlledScreens {
 
     @FXML
     public void initialize() {
-        authorizedUsersListView.setItems(enteredAuthorizedUsers);
         dataManager = DataManager.getInstance();
+        session = Session.getInstance();
+        authorizedUsersListView.setItems(enteredAuthorizedUsers);
         removeUserFromAuthorizeListButton.disableProperty()
                 .bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
     }
@@ -77,12 +78,12 @@ public class NewRecipeController implements ControlledScreens {
 
         if (!manageEmptyInput()) {
             Recipe currentRecipe = new Recipe(
-                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, loggedInUser);
+                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, session.getLoggedInUser());
             dataManager.addRecipe(currentRecipe);
             for (String userName : authorizedUsersListView.getItems()) {
                 for (User user : dataManager.getUserList()) {
                     if (user.getUsername().equals(userName)) {
-                        user.setRecipeAuthorization(currentRecipe);
+                        user.addRecipeAuthorization(currentRecipe);
                     }
                 }
             }
@@ -101,7 +102,7 @@ public class NewRecipeController implements ControlledScreens {
     @FXML
     void addUserToAuthorizeList(ActionEvent event) {
         String username = userToAuthorizeTextField.getText();
-        if (userExists(username) && !username.equals(user.getUsername())) {
+        if (userExists(username) && !username.equals(session.getLoggedInUser().getUsername())) {
             if (!enteredAuthorizedUsers.contains(username)) {
                 enteredAuthorizedUsers.add(username);
             }
