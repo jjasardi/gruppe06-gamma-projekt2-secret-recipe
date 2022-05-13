@@ -39,9 +39,11 @@ public class StartController implements ControlledScreens {
     void initialize() {
         session = Session.getInstance();
 
-        session.hasLoggedInProperty().addListener((observable) -> {
-            loggedInUser = session.getLoggedInUser();
-            fillGridPane();
+        session.hasLoggedInProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                loggedInUser = session.getLoggedInUser();
+                fillGridPane();
+            }
         });
     }
 
