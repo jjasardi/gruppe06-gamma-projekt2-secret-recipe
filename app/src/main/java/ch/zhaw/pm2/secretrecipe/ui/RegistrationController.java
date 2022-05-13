@@ -35,7 +35,6 @@ public class RegistrationController implements ControlledScreens {
     @FXML
     private TextField usernameField;
 
-    @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
         session = Session.getInstance();
@@ -54,6 +53,7 @@ public class RegistrationController implements ControlledScreens {
         String password = passwordField.getText();
         if(!manageEmptyInput()) {
             if (!isUsernameTaken(username)) {
+                initialize();
                 User newUser = new User(firstname, surname, username, password);
                 dataManager.addUser(newUser);
                 session.setLoggedInUser(newUser);
