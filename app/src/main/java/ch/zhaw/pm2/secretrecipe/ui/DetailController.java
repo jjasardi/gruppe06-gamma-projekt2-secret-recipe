@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class DetailController implements ControlledScreens {
     private Recipe recipe;
@@ -39,6 +38,9 @@ public class DetailController implements ControlledScreens {
     @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
+        StartController.recipeClickedProperty().addListener((observable) -> {
+            recipe = StartController.getClickedRecipe();
+        });
     }
 
     @FXML
@@ -59,15 +61,13 @@ public class DetailController implements ControlledScreens {
 
     @FXML
     void editRecipeDescribtion(ActionEvent event) {
-        ingredients.setEditable(true);
-        description.setEditable(true);
+        // ingredients.setEditable(true);
+        // description.setEditable(true);
     }
-
+    
     @FXML
-    void initialize() {
-        StartController.recipeClickedProperty().addListener((observable) -> {
-            //TODO: use StartController.getClickedRecipe()
-        });
+    public void deleteRecipe(ActionEvent actionEvent) {
+        dataManager.deleteRecipe(recipe);
     }
 
     private void loadInformationFromRecipe() {
@@ -79,35 +79,35 @@ public class DetailController implements ControlledScreens {
         }
     }
 
-    void setIngredientsText() {
-        ingredients.setEditable(false);
-        ingredients.setText(recipe.getIngredients());
-    }
+    // void setIngredientsText() {
+    //     ingredients.setEditable(false);
+    //     ingredients.setText(recipe.getIngredients());
+    // }
 
-    void setDescription() {
-        description.setEditable(false);
-        description.setText(recipe.getDescription());
-    }
+    // void setDescription() {
+    //     description.setEditable(false);
+    //     description.setText(recipe.getDescription());
+    // }
 
-    String getIngredients() {
-        return ingredients.getText();
-    }
+    // String getIngredients() {
+    //     return ingredients.getText();
+    // }
 
-    String getDescription() {
-        return description.getText();
-    }
+    // String getDescription() {
+    //     return description.getText();
+    // }
 
-    void printAuthorizedUsers(List<User> users) {
-        for (User user : users) {
-            if (user.getRecipeListe().contains(recipe)) {
-                authorizedUsers.setText(user.getUsername() + "\n");
-            }
-        }
-    }
+    // void printAuthorizedUsers(List<User> users) {
+    //     for (User user : users) {
+    //         if (user.getRecipeListe().contains(recipe)) {
+    //             authorizedUsers.setText(user.getUsername() + "\n");
+    //         }
+    //     }
+    // }
 
-    void setRecipeName(Recipe recipe) {
-        recipeName.setText(recipe.getName());
-    }
+    // void setRecipeName(Recipe recipe) {
+    //     recipeName.setText(recipe.getName());
+    // }
 
     @Override
     public void setScreenList(HashMap<String, Parent> screens) {
