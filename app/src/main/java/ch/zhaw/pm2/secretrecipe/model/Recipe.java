@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Recipe implements Serializable {
     private static final long serialVersionUID = 20L;
+    private int id;
     private String name;
     private String ingredients;
     private String description;
@@ -18,7 +19,8 @@ public class Recipe implements Serializable {
      * @param description
      * @param owner
      */
-    public Recipe(String name, String ingredients, String description, User owner) {
+    public Recipe(int id, String name, String ingredients, String description, User owner) {
+        this.id = id;
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
@@ -35,6 +37,10 @@ public class Recipe implements Serializable {
 
     public String getIngredients() {
         return ingredients;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setIngredients(String ingredients) {

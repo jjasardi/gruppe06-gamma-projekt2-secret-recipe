@@ -54,7 +54,8 @@ public class NewRecipeController implements ControlledScreens {
     public void initialize() {
         authorizedUsersListView.setItems(enteredAuthorizedUsers);
         dataManager = DataManager.getInstance();
-        removeUserFromAuthorizeListButton.disableProperty().bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
+        removeUserFromAuthorizeListButton.disableProperty()
+                .bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
     }
 
     @FXML
@@ -74,8 +75,8 @@ public class NewRecipeController implements ControlledScreens {
         String describtionRecipe = description.getText();
 
         if (!manageEmptyInput()) {
-            Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
-            dataManager = dataManager.getInstance();
+            Recipe currentRecipe = new Recipe(
+                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, user);
             dataManager.addRecipe(currentRecipe);
             for (String userName : authorizedUsersListView.getItems()) {
                 for (User user : dataManager.getUserList()) {
