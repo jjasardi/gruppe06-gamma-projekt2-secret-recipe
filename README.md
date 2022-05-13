@@ -93,36 +93,42 @@ Implementation which extends the basic finctionality of the project.
 ##### Implementation 1:
 In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/34) 
 we described the problem that you can not comment recipes.
+
 ---
 
 ##### Implementation 2:
 
 In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/35)
 we descirbed that you can not like other recipes.
+
 ---
 
 ##### Implementation 3:
 
 In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/36)
 we described that you can not see the comments from other users.
+
 ---
 
 ##### Implementation 4:
 
 In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/37)
 we described that you can not set lables to a recipe like "allergic", "vegan" or something similar like this.
+
 ---
 
 ##### Implementation 5:
 
 In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/38)
 we described that you can not sort the recipes by their lables. 
+
 ---
 
 ##### Implementation 6:
 
 In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/39)
 we described that you can not follow a other user to get updates when he shares a recipe with you.
+
 ---
 
 
