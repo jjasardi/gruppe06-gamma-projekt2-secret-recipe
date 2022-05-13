@@ -24,7 +24,7 @@ public class StartController implements ControlledScreens {
     private HashMap<AnchorPane, Recipe> anchorPaneToRecipe = new HashMap<>();
 
     private Session session;
-    private User currentUser;
+    private User loggedInUser;
 
     @FXML
     public GridPane gridPane;
@@ -37,20 +37,11 @@ public class StartController implements ControlledScreens {
 
     @FXML
     void initialize() {
-        session = session.getInstance();
+        session = Session.getInstance();
 
-        session.hasLoggedInProperty().addListener((observable, oldvalue, newValue) -> {
-            if (newValue) {
-                currentUser = session.getLoggedInUser();
-                List<Recipe> userRecipes = currentUser.getRecipeListe();
-
-                int gridColumnCount = gridPane.getColumnCount();
-                for (int index = 0; index < userRecipes.size(); index++) {
-                    gridPane.add(createAnchorPaneRecipeElement(userRecipes.get(index)),
-                            getColumnOfRecipe(index, gridColumnCount),
-                            getRowOfRecipe(index, gridColumnCount));
-                }
-            }
+        session.hasLoggedInProperty().addListener((observable) -> {
+            loggedInUser = session.getLoggedInUser();
+            fillGridPane();
         });
     }
 
@@ -64,6 +55,17 @@ public class StartController implements ControlledScreens {
 
     private void setNewScene() {
         root.getScene().setRoot(screens.get(Config.NEWRECIPE));
+    }
+
+    private void fillGridPane() {
+        List<Recipe> userRecipes = loggedInUser.getRecipeListe();
+        int gridColumnCount = gridPane.getColumnCount();
+
+        for (int index = 0; index < userRecipes.size(); index++) {
+            gridPane.add(createAnchorPaneRecipeElement(userRecipes.get(index)),
+                    getColumnOfRecipe(index, gridColumnCount),
+                    getRowOfRecipe(index, gridColumnCount));
+        }
     }
 
     private AnchorPane createAnchorPaneRecipeElement(Recipe recipe) {
