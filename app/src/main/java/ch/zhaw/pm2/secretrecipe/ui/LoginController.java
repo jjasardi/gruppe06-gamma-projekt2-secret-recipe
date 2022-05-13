@@ -29,10 +29,15 @@ public class LoginController implements ControlledScreens {
     private AnchorPane root;
 
     @FXML
+    void initialize() {
+        dataManager = DataManager.getInstance();
+        session = Session.getInstance();
+    }
+
+    @FXML
     void loginUser(ActionEvent event) {
         try {
             if (!manageEmptyInput()) {
-                initialize();
                 String userName = usernameField.getText();
                 String password = passwordField.getText();
                 for (User user : dataManager.getUserList()) {
@@ -48,11 +53,6 @@ public class LoginController implements ControlledScreens {
             errorInfoInvalidEntry(Color.RED, usernameField);
             errorInfoInvalidEntry(Color.RED, passwordField);
         }
-    }
-
-    private void initialize(){
-        dataManager = DataManager.getInstance();
-        session = Session.getInstance();
     }
 
     @FXML

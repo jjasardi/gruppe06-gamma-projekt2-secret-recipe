@@ -41,6 +41,12 @@ public class NewRecipeController implements ControlledScreens {
     private AnchorPane root;
 
     @FXML
+    void initialize() {
+        dataManager = DataManager.getInstance();
+        session = Session.getInstance();
+    }
+
+    @FXML
     void backToLastView(ActionEvent event) {
         goToLastView();
     }
@@ -58,7 +64,6 @@ public class NewRecipeController implements ControlledScreens {
 
         if (!manageEmptyInput()) {
             Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, loggedInUser);
-            initialize();
             dataManager.addRecipe(currentRecipe);
             for(String userName : entredAuthiorizedUsers) {
                 for(User user : dataManager.getUserList()) {
@@ -70,11 +75,6 @@ public class NewRecipeController implements ControlledScreens {
             clearText();
             root.getScene().setRoot(screens.get(Config.START));
         }
-    }
-
-    private void initialize() {
-        dataManager = DataManager.getInstance();
-        session = Session.getInstance();
     }
 
     private void clearText() {
