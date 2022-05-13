@@ -4,9 +4,11 @@ import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -35,9 +37,16 @@ public class RegistrationController implements ControlledScreens {
     @FXML
     private TextField usernameField;
 
+    @FXML
+    private Button registrationButton;
+
     public void initialize() {
         dataManager = DataManager.getInstance();
         session = Session.getInstance();
+        registrationButton.disableProperty().bind(Bindings.isEmpty(usernameField.textProperty())
+                .or(Bindings.isEmpty(fistnameField.textProperty()))
+                .or((Bindings.isEmpty(surnameField.textProperty())))
+                .or(Bindings.isEmpty(passwordField.textProperty())));
     }
 
     @FXML
