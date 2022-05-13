@@ -70,6 +70,21 @@ public class User implements Serializable {
     }
 
     public void addRecipeAuthorization(Recipe currentRecipe) {
-        recipeList.add(currentRecipe);
+        if (!isRecipeAuthorized(currentRecipe)) {
+            recipeList.add(currentRecipe);
+        }
+    }
+
+    public void removeRecipeAuthorization(Recipe recipe) {
+        recipeList.removeIf(recipeOnList -> (recipeOnList.getId() == recipe.getId()));
+    }
+
+    public boolean isRecipeAuthorized(Recipe recipe) {
+        for (Recipe recipeOnList : recipeList) {
+            if (recipeOnList.getId() == recipe.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

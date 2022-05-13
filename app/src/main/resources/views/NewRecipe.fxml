@@ -53,11 +53,11 @@
          <children>
             <Label text="Zutaten" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label text="Beschreibung" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <TextArea fx:id="ingredients" prefHeight="53.0" prefWidth="213.0" promptText="Bitte Zutaten hinzufügen!" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextArea fx:id="ingredientsTextArea" prefHeight="53.0" prefWidth="213.0" promptText="Bitte Zutaten hinzufügen!" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin></TextArea>
-            <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" promptText="Bitte eine Beschreibung hinzufügen!" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Bitte eine Beschreibung hinzufügen!" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin></TextArea>
@@ -73,7 +73,7 @@
               </rowConstraints>
                <children>
                   <Button fx:id="saveButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveRecipe" text="Speichern" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteDraftRecipe" text="Entwurf löschen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -102,8 +102,8 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="removeUserFromAuthorizeListButton" mnemonicParsing="false" onAction="#removeUserFromAuthorizeList" prefHeight="26.0" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="addUserToAuthorizeListButton" alignment="CENTER" mnemonicParsing="false" onAction="#addUserToAuthorizeList" text="Hinzufügen" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="removeUserFromAuthorizeListButton" mnemonicParsing="false" onAction="#removeUserFromAuthorizedUsersListView" prefHeight="26.0" prefWidth="90.0" text="Löschen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="addUserToAuthorizeListButton" alignment="CENTER" mnemonicParsing="false" onAction="#addUserToAuthorizedUsersListView" text="Hinzufügen" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
@@ -119,7 +119,7 @@
                   <Insets />
                </GridPane.margin>
             </GridPane>
-            <TextField fx:id="recipeName" promptText="Bitte Rezeptname hinzufügen!" GridPane.columnIndex="1">
+            <TextField fx:id="recipeNameTextField" promptText="Bitte Rezeptname hinzufügen!" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin></TextField>
@@ -131,6 +131,5 @@
             </ListView>
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" onAction="#backToLastView" text="Zurück" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
 </children>
 </AnchorPane>

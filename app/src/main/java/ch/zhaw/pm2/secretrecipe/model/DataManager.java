@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class DataManager {
     private static DataManager dataManager;
     private List<User> userList;
-    private ObservableList<Recipe> recipeList = FXCollections.observableArrayList(new ArrayList<>());
+    private ObservableList<Recipe> recipeList;
 
     private DataManager() {
         userList = Database.getUserListFromFile();
@@ -36,7 +36,7 @@ public class DataManager {
     public List<User> getAuthorizedUserList(Recipe recipe) {
         List<User> authorizedUserList = new ArrayList<>();
         for (User user : userList) {
-            if (user.getRecipeListe().contains(recipe)) {
+            if (user.isRecipeAuthorized(recipe)) {
                 authorizedUserList.add(user);
             }
         }
@@ -77,5 +77,13 @@ public class DataManager {
 
     public void deleteRecipe(Recipe recipe) {
         recipeList.removeIf(recipeOnList -> (recipeOnList.getId() == recipe.getId()));
+    }
+
+    public void updateRecipe(Recipe recipe) {
+        recipeList.forEach(recipeOnList -> {
+            recipeOnList.setName(recipe.getName());
+            recipeOnList.setIngredients(recipe.getIngredients());
+            recipeOnList.setDescription(recipe.getDescription());
+        });
     }
 }
