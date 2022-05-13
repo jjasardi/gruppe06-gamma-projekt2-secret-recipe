@@ -47,9 +47,9 @@ public class StartController implements ControlledScreens {
                 loggedInUser = session.getLoggedInUser();
                 List<Recipe> usersRecipeList = dataManager.getRecipeList(loggedInUser);
                 List<Recipe> authorizedRecipeList = loggedInUser.getRecipeListe();
+                List<Recipe> recipesToShow = getRecipesToShow(usersRecipeList, authorizedRecipeList);
 
-                fillGridPane(authorizedRecipeList);
-                fillGridPane(usersRecipeList);
+                fillGridPane(recipesToShow);
             }
         });
     }
@@ -62,8 +62,10 @@ public class StartController implements ControlledScreens {
         setNewScene();
     }
 
-    private void setNewScene() {
-        root.getScene().setRoot(screens.get(Config.NEWRECIPE));
+    private List<Recipe> getRecipesToShow(List<Recipe> usersRecipeList, List<Recipe> authorizedRecipeList) {
+        return Stream.of(usersRecipeList, authorizedRecipeList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     private void fillGridPane(List<Recipe> recipeList) {
@@ -86,11 +88,11 @@ public class StartController implements ControlledScreens {
     }
 
     private int getColumnOfRecipe(int index, int columnCount) {
-        return index % (columnCount+1);
+        return index % columnCount;
     }
 
     private int getRowOfRecipe(int index, int columnCount) {
-        return index / (columnCount+1);
+        return index / columnCount;
     }
 
     @Override
