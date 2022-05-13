@@ -3,6 +3,7 @@ package ch.zhaw.pm2.secretrecipe.ui;
 import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
+import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ public class NewRecipeController implements ControlledScreens {
     private User user;
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
+    private Session session;
     private List<String> entredAuthiorizedUsers = new ArrayList<>();
 
     @FXML
@@ -56,18 +58,24 @@ public class NewRecipeController implements ControlledScreens {
 
         if (!manageEmptyInput()) {
             Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
-            dataManager = dataManager.getInstance();
+            initialize();
             dataManager.addRecipe(currentRecipe);
+            session.getLoggedInUser().addRecipeAuthorization(currentRecipe);
             for(String userName : entredAuthiorizedUsers) {
                 for(User user : dataManager.getUserList()) {
                     if(user.getUsername().equals(userName)) {
-                        user.setRecipeAuthorization(currentRecipe);
+                        user.addRecipeAuthorization(currentRecipe);
                     }
                 }
             }
             clearText();
             root.getScene().setRoot(screens.get(Config.START));
         }
+    }
+
+    private void initialize() {
+        dataManager = DataManager.getInstance();
+        session = Session.getInstance();
     }
 
     private void clearText() {

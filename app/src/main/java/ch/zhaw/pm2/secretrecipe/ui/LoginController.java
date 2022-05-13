@@ -32,8 +32,7 @@ public class LoginController implements ControlledScreens {
     void loginUser(ActionEvent event) {
         try {
             if (!manageEmptyInput()) {
-                dataManager = dataManager.getInstance();
-                session = session.getInstance();
+                initialize();
                 String userName = usernameField.getText();
                 String password = passwordField.getText();
                 for (User user : dataManager.getUserList()) {
@@ -49,6 +48,11 @@ public class LoginController implements ControlledScreens {
             errorInfoInvalidEntry(Color.RED, usernameField);
             errorInfoInvalidEntry(Color.RED, passwordField);
         }
+    }
+
+    private void initialize(){
+        dataManager = DataManager.getInstance();
+        session = Session.getInstance();
     }
 
     @FXML
