@@ -131,6 +131,13 @@ we described that you can not follow a other user to get updates when he shares 
 
 ---
 
+##### Implementation 7:
+
+In this [issue](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues/27)
+we described that you can not add a picture of the recipe.
+
+---
+
 
 ## Bugs
 All known and not implemented bugs are listed as [open issues](https://github.zhaw.ch/PM2-IT21aWIN-fame-rayi-wahl/gruppe06-gamma-projekt2-secret-recipe/issues). 
