@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class DataManager {
     private static DataManager dataManager;
     private List<User> userList;
-    private ObservableList<Recipe> recipeList = FXCollections.observableArrayList(new ArrayList<>());
+    private ObservableList<Recipe> recipeList;
 
     private DataManager() {
         userList = Database.getUserListFromFile();
