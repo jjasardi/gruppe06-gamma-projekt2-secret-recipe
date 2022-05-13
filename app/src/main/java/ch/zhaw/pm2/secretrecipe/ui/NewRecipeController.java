@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NewRecipeController implements ControlledScreens {
-    private User user;
+    private User loggedInUser = Session.getInstance().getLoggedInUser();
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private Session session;
@@ -57,10 +57,9 @@ public class NewRecipeController implements ControlledScreens {
         String describtionRecipe = description.getText();
 
         if (!manageEmptyInput()) {
-            Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, user);
+            Recipe currentRecipe = new Recipe(nameRecipe, ingredientsRecipe, describtionRecipe, loggedInUser);
             initialize();
             dataManager.addRecipe(currentRecipe);
-            session.getLoggedInUser().addRecipeAuthorization(currentRecipe);
             for(String userName : entredAuthiorizedUsers) {
                 for(User user : dataManager.getUserList()) {
                     if(user.getUsername().equals(userName)) {
