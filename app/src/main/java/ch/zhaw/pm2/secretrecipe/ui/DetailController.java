@@ -60,13 +60,12 @@ public class DetailController implements ControlledScreens {
     @FXML
     void backToLastView(ActionEvent event) {
         StartController.setRecipeClicked(false);
-        root.getScene().setRoot(screens.get(Config.START));
+        setNewScene(Config.START);
     }
 
     @FXML
     void editRecipe(ActionEvent event) {
-        // ingredients.setEditable(true);
-        // description.setEditable(true);
+        setNewScene(Config.NEWRECIPE);
     }
 
     @FXML
@@ -84,42 +83,16 @@ public class DetailController implements ControlledScreens {
     }
 
     private void changeControlsVisibility() {
-        boolean visibility = session.getLoggedInUser().equals(recipe.getOwner());
+        boolean visibility = session.getLoggedInUser().getUsername().equals(recipe.getOwner().getUsername());
         authorizedLabel.setVisible(visibility);
         editButton.setVisible(visibility);
         deleteButton.setVisible(visibility);
         authorizedUsersListView.setVisible(visibility);
     }
 
-    // void setIngredientsText() {
-    //     ingredients.setEditable(false);
-    //     ingredients.setText(recipe.getIngredients());
-    // }
-
-    // void setDescription() {
-    //     description.setEditable(false);
-    //     description.setText(recipe.getDescription());
-    // }
-
-    // String getIngredients() {
-    //     return ingredients.getText();
-    // }
-
-    // String getDescription() {
-    //     return description.getText();
-    // }
-
-    // void printAuthorizedUsers(List<User> users) {
-    //     for (User user : users) {
-    //         if (user.getRecipeListe().contains(recipe)) {
-    //             authorizedUsers.setText(user.getUsername() + "\n");
-    //         }
-    //     }
-    // }
-
-    // void setRecipeName(Recipe recipe) {
-    //     recipeName.setText(recipe.getName());
-    // }
+    private void setNewScene(String view) {
+        root.getScene().setRoot(screens.get(view));
+    }
 
     @Override
     public void setScreenList(HashMap<String, Parent> screens) {
