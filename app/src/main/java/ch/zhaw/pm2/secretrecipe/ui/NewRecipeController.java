@@ -11,11 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -82,20 +78,18 @@ public class NewRecipeController implements ControlledScreens {
         String ingredientsRecipe = ingredients.getText();
         String describtionRecipe = description.getText();
 
-        if (!manageEmptyInput()) {
-            Recipe currentRecipe = new Recipe(
-                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, session.getLoggedInUser());
-            dataManager.addRecipe(currentRecipe);
-            for (String userName : authorizedUsersListView.getItems()) {
-                for (User user : dataManager.getUserList()) {
-                    if (user.getUsername().equals(userName)) {
-                        user.addRecipeAuthorization(currentRecipe);
-                    }
+        Recipe currentRecipe = new Recipe(
+                dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, session.getLoggedInUser());
+        dataManager.addRecipe(currentRecipe);
+        for (String userName : authorizedUsersListView.getItems()) {
+            for (User user : dataManager.getUserList()) {
+                if (user.getUsername().equals(userName)) {
+                    user.addRecipeAuthorization(currentRecipe);
                 }
             }
-            clearText();
-            root.getScene().setRoot(screens.get(Config.START));
         }
+        clearText();
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     private void clearText() {
