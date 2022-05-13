@@ -52,12 +52,18 @@ public class NewRecipeController implements ControlledScreens {
     private AnchorPane root;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
         session = Session.getInstance();
         authorizedUsersListView.setItems(enteredAuthorizedUsers);
         removeUserFromAuthorizeListButton.disableProperty()
                 .bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
+        saveButton.disableProperty().bind(Bindings.isEmpty(recipeName.textProperty())
+                .or(Bindings.isEmpty(ingredients.textProperty()))
+                .or(Bindings.isEmpty(description.textProperty())));
     }
 
     @FXML
