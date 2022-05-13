@@ -45,7 +45,7 @@ public class RegistrationController implements ControlledScreens {
         session = Session.getInstance();
         registrationButton.disableProperty().bind(Bindings.isEmpty(usernameField.textProperty())
                 .or(Bindings.isEmpty(fistnameField.textProperty()))
-                .or((Bindings.isEmpty(surnameField.textProperty())))
+                .or(Bindings.isEmpty(surnameField.textProperty()))
                 .or(Bindings.isEmpty(passwordField.textProperty())));
     }
 
@@ -66,7 +66,15 @@ public class RegistrationController implements ControlledScreens {
             dataManager.addUser(newUser);
             session.setLoggedInUser(newUser);
             goToStartView();
+        } else {
+            handleTakenUsername();
         }
+    }
+
+    private void handleTakenUsername() {
+        usernameField.clear();
+        usernameField.setPromptText("Benutzername bereits verwendet!");
+        usernameField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
     private static void errorInfoEmpty(Color color, TextInputControl content) {
@@ -81,12 +89,13 @@ public class RegistrationController implements ControlledScreens {
     }
 
     private boolean isUsernameTaken(String username) {
+        boolean isUsernameTaken = false;
         for (User registeredUser : dataManager.getUserList()) {
             if (username.equals(registeredUser.getUsername())) {
-                return true;
+                isUsernameTaken = true;
             }
         }
-        return false;
+        return isUsernameTaken;
     }
 
     @Override
