@@ -1,12 +1,14 @@
 package ch.zhaw.pm2.secretrecipe.ui;
 
 import ch.zhaw.pm2.secretrecipe.Config;
+import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
@@ -17,26 +19,33 @@ public class DetailController implements ControlledScreens {
     private Recipe recipe;
     private User user;
     private HashMap<String, Parent> screens = new HashMap<>();
+    private DataManager dataManager;
 
     @FXML
-    private TextArea authorizedUsers;
+    private ListView<String> authorizedUsersListView;
 
     @FXML
-    private Label recipeName;
+    private Label recipeNameLabel;
 
     @FXML
-    private TextArea description;
+    private TextArea descriptionTextArea;
 
     @FXML
-    private TextArea ingredients;
+    private TextArea ingredientsTextArea;
 
     @FXML
     private AnchorPane root;
 
     @FXML
+    public void initialize() {
+        dataManager = DataManager.getInstance();
+    }
+
+    @FXML
     void addUser(ActionEvent event) {
         user.getRecipeListe().add(recipe);
     }
+
     @FXML
     void removeUser(ActionEvent event) {
         user.getRecipeListe().remove(recipe);
@@ -61,12 +70,21 @@ public class DetailController implements ControlledScreens {
         });
     }
 
-    void setIngredientsText () {
+    private void loadInformationFromRecipe() {
+        recipeNameLabel.setText(recipe.getName());
+        ingredientsTextArea.setText(recipe.getIngredients());
+        descriptionTextArea.setText(recipe.getDescription());
+        for (User authorizedUser : dataManager.getAuthorizedUserList(recipe)) {
+            authorizedUsersListView.getItems().add(authorizedUser.getUsername());
+        }
+    }
+
+    void setIngredientsText() {
         ingredients.setEditable(false);
         ingredients.setText(recipe.getIngredients());
     }
 
-    void setDescription () {
+    void setDescription() {
         description.setEditable(false);
         description.setText(recipe.getDescription());
     }
@@ -80,7 +98,7 @@ public class DetailController implements ControlledScreens {
     }
 
     void printAuthorizedUsers(List<User> users) {
-        for(User user : users) {
+        for (User user : users) {
             if (user.getRecipeListe().contains(recipe)) {
                 authorizedUsers.setText(user.getUsername() + "\n");
             }

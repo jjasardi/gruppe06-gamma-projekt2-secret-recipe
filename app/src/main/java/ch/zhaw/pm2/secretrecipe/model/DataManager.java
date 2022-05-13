@@ -30,6 +30,16 @@ public class DataManager {
         return userList;
     }
 
+    public List<User> getAuthorizedUserList(Recipe recipe) {
+        List<User> authorizedUserList = new ArrayList<>();
+        for (User user : userList) {
+            if (user.getRecipeListe().contains(recipe)) {
+                authorizedUserList.add(user);
+            }
+        }
+        return authorizedUserList;
+    }
+
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
