@@ -113,7 +113,4 @@ public class DetailController implements ControlledScreens {
     public void setScreenList(HashMap<String, Parent> screens) {
         this.screens = screens;
     }
-
-    public void deleteRecipe(ActionEvent actionEvent) {
-    }
 }

@@ -79,4 +79,8 @@ public class DataManager {
     public void addRecipe(Recipe recipe) {
         recipeList.add(recipe);
     }
+
+    public void deleteRecipe(Recipe recipe) {
+        recipeList.removeIf(recipeOnList -> (recipeOnList.getId() == recipe.getId()));
+    }
 }
