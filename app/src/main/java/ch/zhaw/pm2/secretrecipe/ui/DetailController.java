@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 public class DetailController implements ControlledScreens {
     private Recipe recipe;
-    private User user;
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
 
@@ -41,16 +40,7 @@ public class DetailController implements ControlledScreens {
         StartController.recipeClickedProperty().addListener((observable) -> {
             recipe = StartController.getClickedRecipe();
         });
-    }
-
-    @FXML
-    void addUser(ActionEvent event) {
-        user.getRecipeListe().add(recipe);
-    }
-
-    @FXML
-    void removeUser(ActionEvent event) {
-        user.getRecipeListe().remove(recipe);
+        loadInformationFromRecipe();
     }
 
     @FXML
@@ -60,7 +50,7 @@ public class DetailController implements ControlledScreens {
     }
 
     @FXML
-    void editRecipeDescribtion(ActionEvent event) {
+    void editRecipe(ActionEvent event) {
         // ingredients.setEditable(true);
         // description.setEditable(true);
     }
