@@ -2,6 +2,7 @@ package ch.zhaw.pm2.secretrecipe.ui;
 
 import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
+import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.ui.ControlledScreens;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +23,7 @@ public class App extends Application {
     /**
      * @param args
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) {launch(args);}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -34,7 +33,7 @@ public class App extends Application {
 
     @Override
     public void stop() {
-        dataManager = dataManager.getInstance();
+        dataManager = DataManager.getInstance();
         dataManager.saveData();
     }
 

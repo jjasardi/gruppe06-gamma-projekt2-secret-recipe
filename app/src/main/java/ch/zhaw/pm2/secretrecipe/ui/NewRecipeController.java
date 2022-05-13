@@ -3,6 +3,7 @@ package ch.zhaw.pm2.secretrecipe.ui;
 import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
+import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 
 public class NewRecipeController implements ControlledScreens {
-    private User user;
+    private User loggedInUser = Session.getInstance().getLoggedInUser();
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
     private ObservableList<String> enteredAuthorizedUsers = FXCollections.observableArrayList();
@@ -76,7 +77,7 @@ public class NewRecipeController implements ControlledScreens {
 
         if (!manageEmptyInput()) {
             Recipe currentRecipe = new Recipe(
-                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, user);
+                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, loggedInUser);
             dataManager.addRecipe(currentRecipe);
             for (String userName : authorizedUsersListView.getItems()) {
                 for (User user : dataManager.getUserList()) {
@@ -85,7 +86,15 @@ public class NewRecipeController implements ControlledScreens {
                     }
                 }
             }
+            clearText();
             root.getScene().setRoot(screens.get(Config.START));
+        }
+    }
+
+    private void clearText() {
+        TextInputControl[] contents = {recipeName, ingredients, description};
+        for(TextInputControl content : contents) {
+            content.clear();
         }
     }
 

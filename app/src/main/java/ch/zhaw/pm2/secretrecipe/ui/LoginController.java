@@ -29,17 +29,22 @@ public class LoginController implements ControlledScreens {
     private AnchorPane root;
 
     @FXML
+    void initialize() {
+        dataManager = DataManager.getInstance();
+        session = Session.getInstance();
+    }
+
+    @FXML
     void loginUser(ActionEvent event) {
         try {
             if (!manageEmptyInput()) {
-                dataManager = dataManager.getInstance();
-                session = session.getInstance();
                 String userName = usernameField.getText();
                 String password = passwordField.getText();
                 for (User user : dataManager.getUserList()) {
                     if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
                         session.setLoggedInUser(user);
                         root.getScene().setRoot(screens.get(Config.START));
+                        return;
                     }
                 }
                 throw new InvalidUserEntry("Invalid user entry!");
