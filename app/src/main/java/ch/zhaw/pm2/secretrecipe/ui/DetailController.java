@@ -44,6 +44,7 @@ public class DetailController implements ControlledScreens {
 
     @FXML
     void backToLastView(ActionEvent event) {
+        StartController.setRecipeClicked(false);
         root.getScene().setRoot(screens.get(Config.START));
     }
 
@@ -51,6 +52,13 @@ public class DetailController implements ControlledScreens {
     void editRecipeDescribtion(ActionEvent event) {
         ingredients.setEditable(true);
         description.setEditable(true);
+    }
+
+    @FXML
+    void initialize() {
+        StartController.recipeClickedProperty().addListener((observable) -> {
+            //TODO: use StartController.getClickedRecipe()
+        });
     }
 
     void setIngredientsText () {

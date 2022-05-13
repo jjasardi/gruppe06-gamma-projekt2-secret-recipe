@@ -5,6 +5,8 @@ import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -13,8 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -27,6 +32,9 @@ public class StartController implements ControlledScreens {
     private Session session;
     private User loggedInUser;
     private DataManager dataManager;
+    private static Recipe clickedRecipe;
+
+    private static BooleanProperty recipeClicked = new SimpleBooleanProperty(false);
 
     @FXML
     public GridPane gridPane;
@@ -59,7 +67,11 @@ public class StartController implements ControlledScreens {
      */
     @FXML
     void newRecipe(ActionEvent event) {
-        setNewScene();
+        setNewScene(Config.NEWRECIPE);
+    }
+
+    private void setNewScene(String view) {
+        root.getScene().setRoot(screens.get(view));
     }
 
     private List<Recipe> getRecipesToShow(List<Recipe> usersRecipeList, List<Recipe> authorizedRecipeList) {
@@ -83,8 +95,22 @@ public class StartController implements ControlledScreens {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(label);
         anchorPaneToRecipe.put(anchorPane, recipe);
+        anchorPaneClickEvent(anchorPane);
 
         return anchorPane;
+    }
+
+    private void anchorPaneClickEvent (AnchorPane anchorPane) {
+        anchorPane.setOnMouseClicked(event -> {
+            AnchorPane clickedAnchorPane = (AnchorPane) event.getSource();
+            clickedRecipe = anchorPaneToRecipe.get(clickedAnchorPane);
+            setNewScene(Config.DETAIL);
+            recipeClicked.set(true);
+        });
+    }
+
+    public static Recipe getClickedRecipe() {
+        return clickedRecipe;
     }
 
     private int getColumnOfRecipe(int index, int columnCount) {
@@ -98,5 +124,17 @@ public class StartController implements ControlledScreens {
     @Override
     public void setScreenList(HashMap<String, Parent> screens) {
         this.screens = screens;
+    }
+
+    public boolean isRecipeClicked() {
+        return recipeClicked.get();
+    }
+
+    public static BooleanProperty recipeClickedProperty() {
+        return recipeClicked;
+    }
+
+    public static void setRecipeClicked(boolean recipeClicked) {
+        StartController.recipeClicked.set(recipeClicked);
     }
 }

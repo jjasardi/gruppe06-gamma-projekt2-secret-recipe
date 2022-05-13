@@ -38,7 +38,7 @@ public class DataManager {
         List<Recipe> usersRecipeList = new ArrayList<>();
 
         for (Recipe recipe : recipeList) {
-            if (recipe.getOwner() == user) {
+            if (recipe.getOwner().getUsername().equals(user.getUsername())) {
                 usersRecipeList.add(recipe);
             }
         }
