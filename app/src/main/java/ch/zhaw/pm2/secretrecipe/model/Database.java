@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public abstract class Database {
     private static final String DATA_FILE_PATH = "database" + File.separator + "data.dat";
-    private static final Logger logger = Logger.getLogger("DatabaaseLogger");
+    private static final Logger logger = Logger.getLogger("DatabaseLogger");
 
     private Database() {
         throw new IllegalStateException("Utility class");
