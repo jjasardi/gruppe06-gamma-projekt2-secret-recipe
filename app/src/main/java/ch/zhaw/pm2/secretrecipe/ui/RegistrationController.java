@@ -60,27 +60,13 @@ public class RegistrationController implements ControlledScreens {
         String firstname = fistnameField.getText();
         String surname = surnameField.getText();
         String password = passwordField.getText();
-        if(!manageEmptyInput()) {
-            if (!isUsernameTaken(username)) {
-                initialize();
-                User newUser = new User(firstname, surname, username, password);
-                dataManager.addUser(newUser);
-                session.setLoggedInUser(newUser);
-                goToStartView();
-            }
+        if (!isUsernameTaken(username)) {
+            initialize();
+            User newUser = new User(firstname, surname, username, password);
+            dataManager.addUser(newUser);
+            session.setLoggedInUser(newUser);
+            goToStartView();
         }
-    }
-
-    private boolean manageEmptyInput() {
-        boolean emptyInput = false;
-        TextInputControl[] contents = {usernameField, fistnameField, surnameField, passwordField};
-        for(TextInputControl content : contents) {
-            if(content.getText().equals("")) {
-                emptyInput = true;
-                errorInfoEmpty(Color.RED, content);
-            }
-        }
-        return emptyInput;
     }
 
     private static void errorInfoEmpty(Color color, TextInputControl content) {
