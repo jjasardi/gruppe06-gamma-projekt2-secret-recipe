@@ -1,7 +1,7 @@
 
 # Secret Recipe 🌶
 
-This the appilcation for "Secret Recipe".
+This is the README file of the appilcation "Secret Recipe".
 
 Focus was to build a first version containing the basic funcionality of the Secret Recipe application.
 
