@@ -44,7 +44,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.secretrecipe.ui.NewRecipeController">
+<AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.secretrecipe.ui.NewRecipeController">
 <children>
       <GridPane alignment="CENTER" layoutY="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -64,13 +64,11 @@
             <TextArea fx:id="ingredients" prefHeight="53.0" prefWidth="213.0" promptText="Bitte Zutaten hinzufügen!" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextArea>
+               </GridPane.margin></TextArea>
             <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" promptText="Bitte eine Beschreibung hinzufügen!" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextArea>
+               </GridPane.margin></TextArea>
             <GridPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -99,26 +97,21 @@
                   <Label text="Person authorisieren:">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Label>
+                     </GridPane.margin></Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <children>
-                        <Button fx:id="addUserToAuthorizeButton" alignment="CENTER" mnemonicParsing="false" onAction="#addUserToAuthorize" text="Person hinzufügen">
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#addUser" text="Person hinzufügen">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="removeUserToAuthorizeButton" mnemonicParsing="false" onAction="#removeUserToAuthorize" text="Entfernen" />
+                           </HBox.margin></Button>
                      </children>
                      <GridPane.margin>
                         <Insets />
-                     </GridPane.margin>
-                  </HBox>
-                  <TextField fx:id="userToAuthorizeTextField" promptText="Benutzername der Person" GridPane.rowIndex="1">
+                     </GridPane.margin></HBox>
+                  <TextField fx:id="entredUserToAuthorize" promptText="Benutzername der Person" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
+                     </GridPane.margin></TextField>
                </children>
                <GridPane.margin>
                   <Insets />
@@ -127,10 +120,8 @@
             <TextField fx:id="recipeName" promptText="Bitte Rezeptname hinzufügen!" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
+               </GridPane.margin></TextField>
             <Label layoutX="10.0" layoutY="137.0" text="Rezeptname" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <ListView fx:id="authorizedUsersListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button mnemonicParsing="false" onAction="#backToLastView" text="Zurück" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
