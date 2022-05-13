@@ -37,3 +37,6 @@ hs_err_pid*
 
 # Ignore Gradle build output directory
 build
+
+# bin files
+.app/bin/
