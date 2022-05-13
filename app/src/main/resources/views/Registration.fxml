@@ -76,7 +76,7 @@
                   <Insets bottom="5.0" left="50.0" right="50.0" top="5.0" />
                </GridPane.margin>
             </PasswordField>
-            <Button mnemonicParsing="false" onAction="#registerUser" text="Registrieren" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Button fx:id="registrationButton" mnemonicParsing="false" onAction="#registerUser" text="Registrieren" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
       <Button layoutY="1.0" mnemonicParsing="false" onAction="#backToLoginView" text="Zurück" />

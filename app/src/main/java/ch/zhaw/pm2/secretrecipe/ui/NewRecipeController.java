@@ -11,11 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -54,12 +50,20 @@ public class NewRecipeController implements ControlledScreens {
     private AnchorPane root;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
         session = Session.getInstance();
         authorizedUsersListView.setItems(enteredAuthorizedUsers);
         removeUserFromAuthorizeListButton.disableProperty()
                 .bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
+
+        saveButton.disableProperty().bind(Bindings.isEmpty(recipeName.textProperty())
+                .or(Bindings.isEmpty(ingredients.textProperty()))
+                .or(Bindings.isEmpty(description.textProperty())));
+      
         StartController.recipeClickedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 editMode = true;
@@ -69,7 +73,6 @@ public class NewRecipeController implements ControlledScreens {
                 recipe = null;
                 editMode = false;
             }
-
         });
     }
 
@@ -137,6 +140,8 @@ public class NewRecipeController implements ControlledScreens {
         for (User authorizedUser : dataManager.getAuthorizedUserList(recipe)) {
             authorizedUsersListView.getItems().add(authorizedUser.getUsername());
         }
+        clearText();
+        root.getScene().setRoot(screens.get(Config.START));
     }
 
     private void clearText() {

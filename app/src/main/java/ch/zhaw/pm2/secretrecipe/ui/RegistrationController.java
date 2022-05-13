@@ -4,9 +4,11 @@ import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -35,9 +37,16 @@ public class RegistrationController implements ControlledScreens {
     @FXML
     private TextField usernameField;
 
+    @FXML
+    private Button registrationButton;
+
     public void initialize() {
         dataManager = DataManager.getInstance();
         session = Session.getInstance();
+        registrationButton.disableProperty().bind(Bindings.isEmpty(usernameField.textProperty())
+                .or(Bindings.isEmpty(fistnameField.textProperty()))
+                .or(Bindings.isEmpty(surnameField.textProperty()))
+                .or(Bindings.isEmpty(passwordField.textProperty())));
     }
 
     @FXML
@@ -51,27 +60,21 @@ public class RegistrationController implements ControlledScreens {
         String firstname = fistnameField.getText();
         String surname = surnameField.getText();
         String password = passwordField.getText();
-        if(!manageEmptyInput()) {
-            if (!isUsernameTaken(username)) {
-                initialize();
-                User newUser = new User(firstname, surname, username, password);
-                dataManager.addUser(newUser);
-                session.setLoggedInUser(newUser);
-                goToStartView();
-            }
+        if (!isUsernameTaken(username)) {
+            initialize();
+            User newUser = new User(firstname, surname, username, password);
+            dataManager.addUser(newUser);
+            session.setLoggedInUser(newUser);
+            goToStartView();
+        } else {
+            handleTakenUsername();
         }
     }
 
-    private boolean manageEmptyInput() {
-        boolean emptyInput = false;
-        TextInputControl[] contents = {usernameField, fistnameField, surnameField, passwordField};
-        for(TextInputControl content : contents) {
-            if(content.getText().equals("")) {
-                emptyInput = true;
-                errorInfoEmpty(Color.RED, content);
-            }
-        }
-        return emptyInput;
+    private void handleTakenUsername() {
+        usernameField.clear();
+        usernameField.setPromptText("Benutzername bereits verwendet!");
+        usernameField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
     private static void errorInfoEmpty(Color color, TextInputControl content) {
@@ -86,12 +89,13 @@ public class RegistrationController implements ControlledScreens {
     }
 
     private boolean isUsernameTaken(String username) {
+        boolean isUsernameTaken = false;
         for (User registeredUser : dataManager.getUserList()) {
             if (username.equals(registeredUser.getUsername())) {
-                return true;
+                isUsernameTaken = true;
             }
         }
-        return false;
+        return isUsernameTaken;
     }
 
     @Override
