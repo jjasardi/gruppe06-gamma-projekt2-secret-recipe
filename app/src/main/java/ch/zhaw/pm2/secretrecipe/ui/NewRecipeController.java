@@ -26,21 +26,23 @@ public class NewRecipeController implements ControlledScreens {
     private DataManager dataManager;
     private Session session;
     private ObservableList<String> enteredAuthorizedUsers = FXCollections.observableArrayList();
+    private Recipe recipe;
+    private boolean editMode = false;
 
     @FXML
     private ListView<String> authorizedUsersListView = new ListView<>();
 
     @FXML
-    private TextArea description;
+    private TextArea descriptionTextArea;
 
     @FXML
     private TextField userToAuthorizeTextField;
 
     @FXML
-    private TextArea ingredients;
+    private TextArea ingredientsTextArea;
 
     @FXML
-    private TextField recipeName;
+    private TextField recipeNameTextField;
 
     @FXML
     private Button addUserToAuthorizeListButton;
@@ -58,49 +60,94 @@ public class NewRecipeController implements ControlledScreens {
         authorizedUsersListView.setItems(enteredAuthorizedUsers);
         removeUserFromAuthorizeListButton.disableProperty()
                 .bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
+        StartController.recipeClickedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                editMode = true;
+                recipe = StartController.getClickedRecipe();
+                loadInformationFromRecipe();
+            } else {
+                recipe = null;
+                editMode = false;
+            }
+
+        });
     }
 
     @FXML
-    void backToLastView(ActionEvent event) {
-        goToLastView();
-    }
-
-    @FXML
-    void deleteDraftRecipe(ActionEvent event) {
-        goToLastView();
+    void cancel(ActionEvent event) {
+        clearText();
+        if (editMode) {
+            setNewScene(Config.DETAIL);
+        } else {
+            setNewScene(Config.START);
+        }
     }
 
     @FXML
     void saveRecipe(ActionEvent event) {
-        String nameRecipe = recipeName.getText();
-        String ingredientsRecipe = ingredients.getText();
-        String describtionRecipe = description.getText();
+        String nameRecipe = recipeNameTextField.getText();
+        String ingredientsRecipe = ingredientsTextArea.getText();
+        String descriptionRecipe = descriptionTextArea.getText();
+        if (editMode) {
+            updateRecipe(nameRecipe, ingredientsRecipe, descriptionRecipe);
+        } else {
+            createRecipe(nameRecipe, ingredientsRecipe, descriptionRecipe);
+        }
+        if (editMode) {
+            setNewScene(Config.DETAIL);
+        } else {
+            setNewScene(Config.START);
+        }
+    }
 
-        if (!manageEmptyInput()) {
-            Recipe currentRecipe = new Recipe(
-                    dataManager.getNewId(), nameRecipe, ingredientsRecipe, describtionRecipe, session.getLoggedInUser());
-            dataManager.addRecipe(currentRecipe);
-            for (String userName : authorizedUsersListView.getItems()) {
-                for (User user : dataManager.getUserList()) {
-                    if (user.getUsername().equals(userName)) {
-                        user.addRecipeAuthorization(currentRecipe);
-                    }
+    private void createRecipe(String nameRecipe, String ingredientsRecipe, String descriptionRecipe) {
+        Recipe currentRecipe = new Recipe(
+                dataManager.getNewId(), nameRecipe, ingredientsRecipe, descriptionRecipe,
+                session.getLoggedInUser());
+        dataManager.addRecipe(currentRecipe);
+        addRecipeAuthorizationOnUsers();
+    }
+
+    private void updateRecipe(String nameRecipe, String ingredientsRecipe, String descriptionRecipe) {
+        recipe.setName(nameRecipe);
+        recipe.setIngredients(ingredientsRecipe);
+        recipe.setDescription(descriptionRecipe);
+        updateRecipeAuthorizationOnUsers();
+    }
+
+    private void updateRecipeAuthorizationOnUsers() {
+        dataManager.getUserList().forEach(userOnList -> userOnList.removeRecipeAuthorization(recipe));
+        addRecipeAuthorizationOnUsers();
+    }
+
+    private void addRecipeAuthorizationOnUsers() {
+        for (String userName : authorizedUsersListView.getItems()) {
+            for (User user : dataManager.getUserList()) {
+                if (user.getUsername().equals(userName)) {
+                    user.addRecipeAuthorization(recipe);
                 }
             }
-            clearText();
-            root.getScene().setRoot(screens.get(Config.START));
+        }
+    }
+
+    private void loadInformationFromRecipe() {
+        recipeNameTextField.setText(recipe.getName());
+        ingredientsTextArea.setText(recipe.getIngredients());
+        descriptionTextArea.setText(recipe.getDescription());
+        for (User authorizedUser : dataManager.getAuthorizedUserList(recipe)) {
+            authorizedUsersListView.getItems().add(authorizedUser.getUsername());
         }
     }
 
     private void clearText() {
-        TextInputControl[] contents = {recipeName, ingredients, description};
-        for(TextInputControl content : contents) {
+        TextInputControl[] contents = { recipeNameTextField, ingredientsTextArea, descriptionTextArea };
+        for (TextInputControl content : contents) {
             content.clear();
         }
     }
 
     @FXML
-    void addUserToAuthorizeList(ActionEvent event) {
+    void addUserToAuthorizedUsersListView(ActionEvent event) {
         String username = userToAuthorizeTextField.getText();
         if (userExists(username) && !username.equals(session.getLoggedInUser().getUsername())) {
             if (!enteredAuthorizedUsers.contains(username)) {
@@ -123,14 +170,14 @@ public class NewRecipeController implements ControlledScreens {
     }
 
     @FXML
-    private void removeUserFromAuthorizeList() {
+    private void removeUserFromAuthorizedUsersListView() {
         int selectedIndex = authorizedUsersListView.getSelectionModel().getSelectedIndex();
         enteredAuthorizedUsers.remove(selectedIndex);
     }
 
     private boolean manageEmptyInput() {
         boolean isEmpty = false;
-        TextInputControl[] contents = { recipeName, ingredients, description };
+        TextInputControl[] contents = { recipeNameTextField, ingredientsTextArea, descriptionTextArea };
         for (TextInputControl content : contents) {
             if (content.getText().equals("")) {
                 isEmpty = true;
@@ -146,8 +193,8 @@ public class NewRecipeController implements ControlledScreens {
         content.setText(errorMessage);
     }
 
-    private void goToLastView() {
-        root.getScene().setRoot(screens.get(Config.START));
+    private void setNewScene(String view) {
+        root.getScene().setRoot(screens.get(view));
     }
 
     @Override
