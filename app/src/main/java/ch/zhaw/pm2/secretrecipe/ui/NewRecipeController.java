@@ -42,10 +42,10 @@ public class NewRecipeController implements ControlledScreens {
     private TextField recipeName;
 
     @FXML
-    private Button addUserToAuthorizeButton;
+    private Button addUserToAuthorizeListButton;
 
     @FXML
-    private Button removeUserToAuthorizeButton;
+    private Button removeUserFromAuthorizeListButton;
 
     @FXML
     private AnchorPane root;
@@ -54,7 +54,7 @@ public class NewRecipeController implements ControlledScreens {
     public void initialize() {
         authorizedUsersListView.setItems(enteredAuthorizedUsers);
         dataManager = DataManager.getInstance();
-        addUserToAuthorizeButton.disableProperty().bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
+        removeUserFromAuthorizeListButton.disableProperty().bind(Bindings.isEmpty(userToAuthorizeTextField.textProperty()));
     }
 
     @FXML
@@ -89,7 +89,7 @@ public class NewRecipeController implements ControlledScreens {
     }
 
     @FXML
-    void addUserToAuthorize(ActionEvent event) {
+    void addUserToAuthorizeList(ActionEvent event) {
         String username = userToAuthorizeTextField.getText();
         if (userExists(username) && !username.equals(user.getUsername())) {
             if (!enteredAuthorizedUsers.contains(username)) {
@@ -112,7 +112,7 @@ public class NewRecipeController implements ControlledScreens {
     }
 
     @FXML
-    private void removeUserToAuthorize() {
+    private void removeUserFromAuthorizeList() {
         int selectedIndex = authorizedUsersListView.getSelectionModel().getSelectedIndex();
         enteredAuthorizedUsers.remove(selectedIndex);
     }
