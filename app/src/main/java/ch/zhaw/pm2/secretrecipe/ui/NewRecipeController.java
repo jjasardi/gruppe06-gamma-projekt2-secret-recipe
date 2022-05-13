@@ -65,7 +65,15 @@ public class NewRecipeController implements ControlledScreens {
                     }
                 }
             }
+            clearText();
             root.getScene().setRoot(screens.get(Config.START));
+        }
+    }
+
+    private void clearText() {
+        TextInputControl[] contents = {recipeName, ingredients, description};
+        for(TextInputControl content : contents) {
+            content.clear();
         }
     }
 

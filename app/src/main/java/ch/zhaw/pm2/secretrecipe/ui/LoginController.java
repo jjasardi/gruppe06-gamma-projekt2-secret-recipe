@@ -40,6 +40,7 @@ public class LoginController implements ControlledScreens {
                     if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
                         session.setLoggedInUser(user);
                         root.getScene().setRoot(screens.get(Config.START));
+                        return;
                     }
                 }
                 throw new InvalidUserEntry("Invalid user entry!");
