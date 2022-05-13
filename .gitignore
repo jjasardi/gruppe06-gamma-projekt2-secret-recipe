@@ -1,3 +1,13 @@
+# InelliJ IDEA files
+*.iml
+*.ipr
+*.ids
+*.iws
+.idea/
+
+# Visual Studio Code
+.vscode
+
 # Compiled class file
 *.class
 
@@ -27,3 +37,6 @@ hs_err_pid*
 
 # Ignore Gradle build output directory
 build
+
+# bin files
+.app/bin/
