@@ -5,18 +5,19 @@ import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
+/**
+ * This class is the controller of the Registration view.
+ */
 public class RegistrationController implements ControlledScreens {
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
@@ -40,6 +41,11 @@ public class RegistrationController implements ControlledScreens {
     @FXML
     private Button registrationButton;
 
+    /**
+     * gets the {@link DataManager} instance and {@link Session} instance.
+     * it also deactivates the button when needed fields are empty.
+     */
+    @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
         session = Session.getInstance();
@@ -50,12 +56,12 @@ public class RegistrationController implements ControlledScreens {
     }
 
     @FXML
-    private void backToLoginView(ActionEvent event) {
+    private void backToLoginView() {
         root.getScene().setRoot(screens.get(Config.LOGIN));
     }
 
     @FXML
-    private void registerUser(ActionEvent event) {
+    private void registerUser() {
         String username = usernameField.getText();
         String firstname = fistnameField.getText();
         String surname = surnameField.getText();
@@ -75,13 +81,6 @@ public class RegistrationController implements ControlledScreens {
         usernameField.clear();
         usernameField.setPromptText("Benutzername bereits verwendet!");
         usernameField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-    }
-
-    private static void errorInfoEmpty(Color color, TextInputControl content) {
-        content.setBorder(new Border(new BorderStroke(color, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        if (content.getText().equals("")) {
-            content.setPromptText("Bitte nicht leer lassen!");
-        }
     }
 
     private void goToStartView() {

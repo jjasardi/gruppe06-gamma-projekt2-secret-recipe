@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * this class represents a user object. In this class the recipes from other
+ * users that he is authorized to see are saved.
  */
 public class User implements Serializable {
     private static final long serialVersionUID = 10L;
@@ -69,16 +70,34 @@ public class User implements Serializable {
         this.recipeList = recipeList;
     }
 
+    /**
+     * adds one recipe to the authorized recipe list. the same recipe can be added
+     * only once to the list
+     *
+     * @param currentRecipe the recipe to be added to the user's authorized recipes
+     */
     public void addRecipeAuthorization(Recipe currentRecipe) {
         if (!isRecipeAuthorized(currentRecipe)) {
             recipeList.add(currentRecipe);
         }
     }
 
+    /**
+     * removes one recipe from the authorized list.
+     *
+     * @param the recipe to be removed
+     */
     public void removeRecipeAuthorization(Recipe recipe) {
         recipeList.removeIf(recipeOnList -> (recipeOnList.getId() == recipe.getId()));
     }
 
+    /**
+     * checks if a recipe is already in the authorized recipe list.
+     *
+     * @param recipe the recipe to be checked
+     * @return true if recipe is already in the authorized recipe list. false
+     *         otherwise
+     */
     public boolean isRecipeAuthorized(Recipe recipe) {
         for (Recipe recipeOnList : recipeList) {
             if (recipeOnList.getId() == recipe.getId()) {

@@ -6,7 +6,6 @@ import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -18,6 +17,9 @@ import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
+/**
+ * This class is the controller of the login view
+ */
 public class LoginController implements ControlledScreens {
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
@@ -32,6 +34,10 @@ public class LoginController implements ControlledScreens {
     @FXML
     private Button loginButton;
 
+    /**
+     * gets the {@link DataManager} instance and {@link Session} instance.
+     * it also deactivates the button when needed fields are empty.
+     */
     @FXML
     void initialize() {
         dataManager = DataManager.getInstance();
@@ -41,7 +47,7 @@ public class LoginController implements ControlledScreens {
     }
 
     @FXML
-    void loginUser(ActionEvent event) {
+    private void loginUser() {
         try {
             String userName = usernameField.getText();
             String password = passwordField.getText();
@@ -61,7 +67,7 @@ public class LoginController implements ControlledScreens {
     }
 
     @FXML
-    void switchToRegisterView(ActionEvent event) {
+    private void switchToRegisterView() {
         root.getScene().setRoot(screens.get(Config.REGISTRATION));
     }
 

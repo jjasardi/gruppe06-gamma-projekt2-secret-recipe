@@ -8,7 +8,6 @@ import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -17,6 +16,10 @@ import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
+/**
+ * This class is the controller of the NewRecipe view.
+ * It is also used when editing a recipe.
+ */
 public class NewRecipeController implements ControlledScreens {
     private HashMap<String, Parent> screens = new HashMap<>();
     private DataManager dataManager;
@@ -52,6 +55,10 @@ public class NewRecipeController implements ControlledScreens {
     @FXML
     private Button saveButton;
 
+    /**
+     * gets the {@link DataManager} instance and {@link Session} instance and
+     * initializes the controller.
+     */
     @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
@@ -63,7 +70,7 @@ public class NewRecipeController implements ControlledScreens {
         saveButton.disableProperty().bind(Bindings.isEmpty(recipeNameTextField.textProperty())
                 .or(Bindings.isEmpty(ingredientsTextArea.textProperty()))
                 .or(Bindings.isEmpty(descriptionTextArea.textProperty())));
-      
+
         StartController.recipeClickedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 editMode = true;
@@ -77,7 +84,7 @@ public class NewRecipeController implements ControlledScreens {
     }
 
     @FXML
-    void cancel(ActionEvent event) {
+    private void cancel() {
         clearText();
         if (editMode) {
             setNewScene(Config.DETAIL);
@@ -87,7 +94,7 @@ public class NewRecipeController implements ControlledScreens {
     }
 
     @FXML
-    void saveRecipe(ActionEvent event) {
+    private void saveRecipe() {
         String nameRecipe = recipeNameTextField.getText();
         String ingredientsRecipe = ingredientsTextArea.getText();
         String descriptionRecipe = descriptionTextArea.getText();
@@ -152,7 +159,7 @@ public class NewRecipeController implements ControlledScreens {
     }
 
     @FXML
-    void addUserToAuthorizedUsersListView(ActionEvent event) {
+    private void addUserToAuthorizedUsersListView() {
         String username = userToAuthorizeTextField.getText();
         if (userExists(username) && !username.equals(session.getLoggedInUser().getUsername())) {
             if (!enteredAuthorizedUsers.contains(username)) {
@@ -178,18 +185,6 @@ public class NewRecipeController implements ControlledScreens {
     private void removeUserFromAuthorizedUsersListView() {
         int selectedIndex = authorizedUsersListView.getSelectionModel().getSelectedIndex();
         enteredAuthorizedUsers.remove(selectedIndex);
-    }
-
-    private boolean manageEmptyInput() {
-        boolean isEmpty = false;
-        TextInputControl[] contents = { recipeNameTextField, ingredientsTextArea, descriptionTextArea };
-        for (TextInputControl content : contents) {
-            if (content.getText().equals("")) {
-                isEmpty = true;
-                errorInfo(Color.RED, content, "Bitte nicht leer lassen!");
-            }
-        }
-        return isEmpty;
     }
 
     private void errorInfo(Color color, TextInputControl content, String errorMessage) {
