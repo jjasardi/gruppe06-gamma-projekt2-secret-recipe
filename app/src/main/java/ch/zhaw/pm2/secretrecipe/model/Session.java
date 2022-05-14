@@ -3,6 +3,11 @@ package ch.zhaw.pm2.secretrecipe.model;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+/**
+ * this class saves the temporary informations of the program that shouldn't be
+ * saved after the programm is closed. It implements the singletone pattern so
+ * that one instance of the class is used for the entire programm
+ */
 public class Session {
 
     private static Session session;
@@ -10,9 +15,16 @@ public class Session {
 
     private BooleanProperty hasLoggedIn = new SimpleBooleanProperty(false);
 
-    private Session() {}
+    private Session() {
+    }
 
-    public static Session getInstance(){
+    /**
+     * This static method return the instance of {@link Session}. it creates an
+     * instance of {@link Session} if it still doesn't exist.
+     *
+     * @return {@link Session} instance.
+     */
+    public static Session getInstance() {
         if (session == null) {
             session = new Session();
         }

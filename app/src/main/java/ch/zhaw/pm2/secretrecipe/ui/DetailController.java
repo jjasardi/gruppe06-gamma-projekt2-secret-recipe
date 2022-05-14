@@ -5,7 +5,6 @@ import ch.zhaw.pm2.secretrecipe.model.DataManager;
 import ch.zhaw.pm2.secretrecipe.model.Recipe;
 import ch.zhaw.pm2.secretrecipe.model.Session;
 import ch.zhaw.pm2.secretrecipe.model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -16,6 +15,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.HashMap;
 
+/**
+ * This class is the controller of the detail view, where the details of a
+ * recipe are shown.
+ */
 public class DetailController implements ControlledScreens {
     private Recipe recipe;
     private HashMap<String, Parent> screens = new HashMap<>();
@@ -46,6 +49,10 @@ public class DetailController implements ControlledScreens {
     @FXML
     private AnchorPane root;
 
+    /**
+     * gets the {@link DataManager} instance and {@link Session} instance.
+     * it also changes the view and loads the information from the recipe.
+     */
     @FXML
     public void initialize() {
         dataManager = DataManager.getInstance();
@@ -58,18 +65,18 @@ public class DetailController implements ControlledScreens {
     }
 
     @FXML
-    void backToLastView(ActionEvent event) {
+    private void backToLastView() {
         StartController.setRecipeClicked(false);
         setNewScene(Config.START);
     }
 
     @FXML
-    void editRecipe(ActionEvent event) {
+    private void editRecipe() {
         setNewScene(Config.NEWRECIPE);
     }
 
     @FXML
-    public void deleteRecipe(ActionEvent actionEvent) {
+    private void deleteRecipe() {
         dataManager.deleteRecipe(recipe);
     }
 

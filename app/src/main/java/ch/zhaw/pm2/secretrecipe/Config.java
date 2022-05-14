@@ -1,7 +1,7 @@
 package ch.zhaw.pm2.secretrecipe;
 
 /**
- *
+ * Utility class used only to store the name and the paths of the views
  */
 public final class Config {
 

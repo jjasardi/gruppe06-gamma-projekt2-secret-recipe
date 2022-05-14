@@ -8,7 +8,6 @@ import ch.zhaw.pm2.secretrecipe.model.User;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -23,7 +22,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- *
+ * This class is the controller of the Start view, where all the visible recipes
+ * of the logged in user are shown.
  */
 public class StartController implements ControlledScreens {
 
@@ -46,8 +46,12 @@ public class StartController implements ControlledScreens {
     @FXML
     private Button newButton;
 
+    /**
+     * gets the {@link DataManager} instance and {@link Session} instance and adds
+     * listeners to update the shown recipes on changes.
+     */
     @FXML
-    void initialize() {
+    public void initialize() {
         session = Session.getInstance();
         dataManager = DataManager.getInstance();
 
@@ -73,7 +77,7 @@ public class StartController implements ControlledScreens {
      * @param event
      */
     @FXML
-    void newRecipe(ActionEvent event) {
+    private void newRecipe() {
         setNewScene(Config.NEWRECIPE);
     }
 
@@ -107,7 +111,7 @@ public class StartController implements ControlledScreens {
         return anchorPane;
     }
 
-    private void anchorPaneClickEvent (AnchorPane anchorPane) {
+    private void anchorPaneClickEvent(AnchorPane anchorPane) {
         anchorPane.setOnMouseClicked(event -> {
             AnchorPane clickedAnchorPane = (AnchorPane) event.getSource();
             clickedRecipe = anchorPaneToRecipe.get(clickedAnchorPane);

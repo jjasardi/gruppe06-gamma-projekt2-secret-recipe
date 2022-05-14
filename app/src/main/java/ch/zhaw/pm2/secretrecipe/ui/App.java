@@ -2,8 +2,6 @@ package ch.zhaw.pm2.secretrecipe.ui;
 
 import ch.zhaw.pm2.secretrecipe.Config;
 import ch.zhaw.pm2.secretrecipe.model.DataManager;
-import ch.zhaw.pm2.secretrecipe.model.Session;
-import ch.zhaw.pm2.secretrecipe.ui.ControlledScreens;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +11,7 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 
 /**
- *
+ * this class contains the main method and launches the GUI application.
  */
 public class App extends Application {
 
@@ -23,7 +21,9 @@ public class App extends Application {
     /**
      * @param args
      */
-    public static void main(String[] args) {launch(args);}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -37,7 +37,6 @@ public class App extends Application {
         dataManager.saveData();
     }
 
-
     private void startView(Stage stage) {
         try {
             Scene scene = new Scene(screens.get(Config.LOGIN));
@@ -46,7 +45,7 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

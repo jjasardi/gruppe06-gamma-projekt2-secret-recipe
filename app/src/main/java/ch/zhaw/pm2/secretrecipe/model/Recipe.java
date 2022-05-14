@@ -3,7 +3,7 @@ package ch.zhaw.pm2.secretrecipe.model;
 import java.io.Serializable;
 
 /**
- *
+ * this class represents a recipe object.
  */
 public class Recipe implements Serializable {
     private static final long serialVersionUID = 20L;
